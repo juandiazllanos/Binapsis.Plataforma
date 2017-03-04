@@ -2,7 +2,7 @@ namespace Binapsis.Plataforma.Estructura.Interno
 {
 	internal class CaracteristicaObjetoDatos : Caracteristica
     {
-        ObjetoDatos _valor;
+        IObjetoDatos _valor;
 
 		public CaracteristicaObjetoDatos(IPropiedad propiedad)
             : base(propiedad)
@@ -12,10 +12,10 @@ namespace Binapsis.Plataforma.Estructura.Interno
 
         public override void Establecer(object valor)
         {
-            EstablecerObjetoDatos((ObjetoDatos)valor);
+            EstablecerObjetoDatos((IObjetoDatos)valor);
         }
 
-        public override void EstablecerObjetoDatos(ObjetoDatos valor)
+        public override void EstablecerObjetoDatos(IObjetoDatos valor)
         {
             _valor = valor;
 		}
@@ -25,7 +25,7 @@ namespace Binapsis.Plataforma.Estructura.Interno
             return ObtenerObjetoDatos();
         }
 
-        public override ObjetoDatos ObtenerObjetoDatos()
+        public override IObjetoDatos ObtenerObjetoDatos()
         {
 			return _valor;
 		}

@@ -14,9 +14,9 @@ namespace Binapsis.Plataforma.Estructura.Implementaciones
 
         public abstract IImplementacion Crear(ITipo tipo);
 
-        public abstract IImplementacion Crear(ITipo tipo, ObjetoDatos propietario);
+        public abstract IImplementacion Crear(ITipo tipo, IObjetoDatos propietario);
 
-        public virtual void AgregarObjetoDatos(IPropiedad propiedad, ObjetoDatos item)
+        public virtual void AgregarObjetoDatos(IPropiedad propiedad, IObjetoDatos item)
         {
             _impl.AgregarObjetoDatos(propiedad, item);
         }
@@ -86,7 +86,7 @@ namespace Binapsis.Plataforma.Estructura.Implementaciones
             _impl.EstablecerObject(propiedad, valor);
         }
 
-        public virtual void EstablecerObjetoDatos(IPropiedad propiedad, ObjetoDatos valor)
+        public virtual void EstablecerObjetoDatos(IPropiedad propiedad, IObjetoDatos valor)
         {
             _impl.EstablecerObjetoDatos(propiedad, valor);
         }
@@ -181,7 +181,7 @@ namespace Binapsis.Plataforma.Estructura.Implementaciones
             return _impl.ObtenerObject(propiedad);
         }
 
-        public virtual ObjetoDatos ObtenerObjetoDatos(IPropiedad propiedad)
+        public virtual IObjetoDatos ObtenerObjetoDatos(IPropiedad propiedad)
         {
             return _impl.ObtenerObjetoDatos(propiedad);
         }
@@ -216,12 +216,12 @@ namespace Binapsis.Plataforma.Estructura.Implementaciones
             return _impl.ObtenerUShort(propiedad);
         }
 
-        public virtual void RemoverObjetoDatos(IPropiedad propiedad, ObjetoDatos item)
+        public virtual void RemoverObjetoDatos(IPropiedad propiedad, IObjetoDatos item)
         {
             _impl.RemoverObjetoDatos(propiedad, item);
         }
 
-        public ObjetoDatos Propietario
+        public IObjetoDatos Propietario
         {
             get
             {

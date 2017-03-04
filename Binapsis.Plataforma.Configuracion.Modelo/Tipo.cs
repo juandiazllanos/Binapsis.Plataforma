@@ -6,11 +6,11 @@ namespace Binapsis.Plataforma.Configuracion.Modelo
 {
     public class Tipo : ITipo
     {
-        ObjetoDatos _od;
+        IObjetoDatos _od;
         List<IPropiedad> _propiedades;
         ITipo _base;
 
-        public Tipo(ObjetoDatos od)
+        public Tipo(IObjetoDatos od)
         {
             _od = od;
         }

@@ -9,11 +9,11 @@ namespace Binapsis.Plataforma.Serializacion.Lectura
     {
 		ILector _lector;
 		Identidad _stack;
-		ObjetoDatos _od;
+		IObjetoDatos _od;
         Dictionary<string, ITipo> _tipos;
         List<IMetodoAsociacion> _asociaciones;
 
-        internal ModeloLectura(ILector lector, ObjetoDatos od)
+        internal ModeloLectura(ILector lector, IObjetoDatos od)
         {
             _lector = lector;
             _od = od;
@@ -29,7 +29,7 @@ namespace Binapsis.Plataforma.Serializacion.Lectura
             return Crear(metodo);
 		}
         
-        ObjetoDatos IModeloLectura.Instanciar(int refid, string uri, string tipo)
+        IObjetoDatos IModeloLectura.Instanciar(int refid, string uri, string tipo)
         {
             return Instanciar(refid, uri, tipo);
         }
@@ -49,7 +49,7 @@ namespace Binapsis.Plataforma.Serializacion.Lectura
             return Crear(refid, longitud);
         }
 
-        IMetodoLectura IModeloLectura.Crear(int refid, int longitud, ObjetoDatos od)
+        IMetodoLectura IModeloLectura.Crear(int refid, int longitud, IObjetoDatos od)
         {
             return Crear(refid, longitud, od);
 		}
@@ -100,11 +100,11 @@ namespace Binapsis.Plataforma.Serializacion.Lectura
                 _tipos.Add(clave, tipo);
         }
 
-        private ObjetoDatos Instanciar(int refid, string uri, string nombre)
+        private IObjetoDatos Instanciar(int refid, string uri, string nombre)
         {
             // obtener el tipo
             ITipo tipo = _tipos[$"{uri}.{nombre}"];
-            ObjetoDatos od;
+            IObjetoDatos od;
 
             // instanciar el od
             if  (refid == 0)//(tipo == _od.Tipo)
@@ -125,8 +125,8 @@ namespace Binapsis.Plataforma.Serializacion.Lectura
 
         private void Resolver(int refid, int propietario, int propiedad)
         {
-            ObjetoDatos od = _stack.Obtener(propietario);
-            ObjetoDatos valor = _stack.Obtener(refid);
+            IObjetoDatos od = _stack.Obtener(propietario);
+            IObjetoDatos valor = _stack.Obtener(refid);
 
             od.EstablecerObjetoDatos(propiedad, valor);
         }
@@ -159,18 +159,18 @@ namespace Binapsis.Plataforma.Serializacion.Lectura
         
         private IMetodoLectura Crear(int refid, int longitud)
         {
-            ObjetoDatos od = _stack[refid];
+            IObjetoDatos od = _stack[refid];
             return Crear(refid, longitud, od);
         }
 
-        private IMetodoLectura Crear(int refid, int longitud, ObjetoDatos od)
+        private IMetodoLectura Crear(int refid, int longitud, IObjetoDatos od)
         {            
             return new LectorObjetoDatos(_lector, od, longitud);
         }
 
         private IMetodoLectura Crear(int refid, int longitud, int propietario, int propiedad)
         {
-            ObjetoDatos od;
+            IObjetoDatos od;
             // obtener propietario y crear referencia
             od = _stack.Obtener(propietario).CrearObjetoDatos(propiedad);
             // agregar identidad de referencia 

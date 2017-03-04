@@ -82,7 +82,7 @@ namespace Binapsis.Plataforma.Historial.Interno
             _comandos.Push(new ComandoRemover(estado));
         }
 
-        public void CrearObjetoDatos(IImplementacion impl, IPropiedad propiedad, ObjetoDatos valor, int indice)
+        public void CrearObjetoDatos(IImplementacion impl, IPropiedad propiedad, IObjetoDatos valor, int indice)
         {
             //if (propiedad.Cardinalidad >= Cardinalidad.Muchos)
             //    RegistrarAgregar(FabricaEstado.Crear(impl, propiedad, valor, indice));
@@ -156,7 +156,7 @@ namespace Binapsis.Plataforma.Historial.Interno
                 RegistrarEstablecer(FabricaEstado.Crear(impl, propiedad, valorInicial));
         }
 
-        public void EstablecerObjetoDatos(IImplementacion impl, IPropiedad propiedad, ObjetoDatos valor, ObjetoDatos valorInicial)
+        public void EstablecerObjetoDatos(IImplementacion impl, IPropiedad propiedad, IObjetoDatos valor, IObjetoDatos valorInicial)
         {
             if (!(valorInicial?.Equals(valor) ?? valor == null)) // si valor inicial es nulo, sera igual al nuevo valor si nuevo valor no es nulo
                 RegistrarEstablecer(FabricaEstado.Crear(impl, propiedad, valorInicial));
@@ -198,12 +198,12 @@ namespace Binapsis.Plataforma.Historial.Interno
                 RegistrarEstablecer(FabricaEstado.Crear(impl, propiedad, valorInicial));
         }
 
-        public void AgregarObjetoDatos(IImplementacion impl, IPropiedad propiedad, ObjetoDatos valor, int indice)
+        public void AgregarObjetoDatos(IImplementacion impl, IPropiedad propiedad, IObjetoDatos valor, int indice)
         {
             RegistrarAgregar(FabricaEstado.Crear(impl, propiedad, valor, indice));
         }
 
-        public void RemoverObjetoDatos(IImplementacion impl, IPropiedad propiedad, ObjetoDatos valor, int indice)
+        public void RemoverObjetoDatos(IImplementacion impl, IPropiedad propiedad, IObjetoDatos valor, int indice)
         {
             RegistrarRemover(FabricaEstado.Crear(impl, propiedad, valor, indice));
         }

@@ -6,7 +6,7 @@ namespace Binapsis.Plataforma.Estructura.Implementaciones
 {
     internal class Implementacion : IImplementacion
     {
-        private ObjetoDatos _propietario;
+        private IObjetoDatos _propietario;
         private Contenido _impl;
 
         internal Implementacion(ITipo tipo)
@@ -14,7 +14,7 @@ namespace Binapsis.Plataforma.Estructura.Implementaciones
             _impl = new Contenido(tipo);
         }
 
-        internal Implementacion(ITipo tipo, ObjetoDatos propietario)
+        internal Implementacion(ITipo tipo, IObjetoDatos propietario)
             : this(tipo)
         {
             _propietario = propietario;
@@ -25,7 +25,7 @@ namespace Binapsis.Plataforma.Estructura.Implementaciones
             return new Implementacion(tipo);
         }
 
-        public IImplementacion Crear(ITipo tipo, ObjetoDatos propietario)
+        public IImplementacion Crear(ITipo tipo, IObjetoDatos propietario)
         {
             return new Implementacion(tipo, propietario);
         }
@@ -95,7 +95,7 @@ namespace Binapsis.Plataforma.Estructura.Implementaciones
             _impl.ObtenerCaracteristica(propiedad).EstablecerObject(valor);
         }
         
-        public void EstablecerObjetoDatos(IPropiedad propiedad, ObjetoDatos valor)
+        public void EstablecerObjetoDatos(IPropiedad propiedad, IObjetoDatos valor)
         {
             _impl.ObtenerCaracteristica(propiedad).EstablecerObjetoDatos(valor);
         }
@@ -190,7 +190,7 @@ namespace Binapsis.Plataforma.Estructura.Implementaciones
             return _impl.ObtenerCaracteristica(propiedad).ObtenerObject();
         }
         
-        public ObjetoDatos ObtenerObjetoDatos(IPropiedad propiedad)
+        public IObjetoDatos ObtenerObjetoDatos(IPropiedad propiedad)
         {
             return _impl.ObtenerCaracteristica(propiedad).ObtenerObjetoDatos();
         }
@@ -225,12 +225,12 @@ namespace Binapsis.Plataforma.Estructura.Implementaciones
             return _impl.ObtenerCaracteristica(propiedad).ObtenerUShort();
         }
 
-        public void AgregarObjetoDatos(IPropiedad propiedad, ObjetoDatos item)
+        public void AgregarObjetoDatos(IPropiedad propiedad, IObjetoDatos item)
         {
             _impl.ObtenerCaracteristica(propiedad).AgregarObjetoDatos(item); 
         }
 
-        public void RemoverObjetoDatos(IPropiedad propiedad, ObjetoDatos item)
+        public void RemoverObjetoDatos(IPropiedad propiedad, IObjetoDatos item)
         {
             _impl.ObtenerCaracteristica(propiedad).RemoverObjetoDatos(item);
         }
@@ -245,7 +245,7 @@ namespace Binapsis.Plataforma.Estructura.Implementaciones
             }
         }
 
-        public ObjetoDatos Propietario
+        public IObjetoDatos Propietario
         {
             get
             {

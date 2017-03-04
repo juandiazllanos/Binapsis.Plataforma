@@ -5,17 +5,17 @@ namespace Binapsis.Plataforma.Serializacion
 {
 	internal class Identidad
     {
-		private List<ObjetoDatos> _identidades;
+		private List<IObjetoDatos> _identidades;
 
 		public Identidad()
         {
-            _identidades = new List<ObjetoDatos>();
+            _identidades = new List<IObjetoDatos>();
 		}
         
         /// <summary>
         /// Agrega un objeto de datos y se le asigna un identificador
         /// </summary>
-		public void Agregar(ObjetoDatos od, int refid)
+		public void Agregar(IObjetoDatos od, int refid)
         {
             if (!_identidades.Contains(od))
                 _identidades.Insert(refid, od);
@@ -24,7 +24,7 @@ namespace Binapsis.Plataforma.Serializacion
 		/// <summary>
         /// Obtiene el identificador a partir del objeto de datos.
         /// </summary>
-		public int Obtener(ObjetoDatos od)
+		public int Obtener(IObjetoDatos od)
         {
             if (!_identidades.Contains(od))
                 _identidades.Add(od);
@@ -35,12 +35,12 @@ namespace Binapsis.Plataforma.Serializacion
 		/// <summary>
         /// Obtiene un objeto de datos a partir del identificador
         /// </summary>
-		public ObjetoDatos Obtener(int refid)
+		public IObjetoDatos Obtener(int refid)
         {
             return _identidades[refid];
 		}
 
-        public ObjetoDatos this[int refid] { get { return Obtener(refid); } }        
+        public IObjetoDatos this[int refid] { get { return Obtener(refid); } }        
 
 	}
 

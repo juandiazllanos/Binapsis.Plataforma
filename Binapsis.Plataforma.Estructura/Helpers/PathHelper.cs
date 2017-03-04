@@ -11,7 +11,7 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return (ruta.IndexOfAny(new char[] { '/', '.', '[' }) > 0);
         }
 
-        private static void Resolver(ObjetoDatos od, string ruta, out ObjetoDatos referencia, out IPropiedad propiedad)
+        private static void Resolver(IObjetoDatos od, string ruta, out IObjetoDatos referencia, out IPropiedad propiedad)
         {
             string[] pasos = ruta.Split('/');
             int longitud = pasos.GetLength(0);
@@ -30,9 +30,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             propiedad = (referencia != null ? referencia.Tipo.ObtenerPropiedad(pasos[longitud - 1]) : null);
         }
 
-        private static ObjetoDatos ResolverReferencia(ObjetoDatos od, string ruta)
+        private static IObjetoDatos ResolverReferencia(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia = default(ObjetoDatos);
+            IObjetoDatos referencia = default(IObjetoDatos);
             IPropiedad propiedad = null;
             string[] pasos = ruta.Split(new char[] { '.', '[', ']' });
             int indice;
@@ -55,9 +55,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return referencia;
         }
 
-        private static ObjetoDatos ResolverReferencia(ObjetoDatos od, IPropiedad propiedad, string parametro)
+        private static IObjetoDatos ResolverReferencia(IObjetoDatos od, IPropiedad propiedad, string parametro)
         {
-            ObjetoDatos referencia = null;
+            IObjetoDatos referencia = null;
             string[] pasos = parametro.Split(new char[] { '=' });
 
             if (pasos.GetLength(0) > 1)
@@ -73,9 +73,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
         }
 
 
-        internal static ObjetoDatos CrearObjetoDatos(ObjetoDatos od, string ruta)
+        internal static IObjetoDatos CrearObjetoDatos(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -90,9 +90,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
 
-        public static bool Establecido(ObjetoDatos od, string ruta)
+        public static bool Establecido(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             bool valor = default(bool);
 
@@ -106,9 +106,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return valor;
         }
 
-        public static void Establecer(ObjetoDatos od, string ruta, object valor)
+        public static void Establecer(IObjetoDatos od, string ruta, object valor)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -119,9 +119,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
 
-        public static void EstablecerBoolean(ObjetoDatos od, string ruta, bool valor)
+        public static void EstablecerBoolean(IObjetoDatos od, string ruta, bool valor)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -132,9 +132,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
         
-        public static void EstablecerByte(ObjetoDatos od, string ruta, byte valor)
+        public static void EstablecerByte(IObjetoDatos od, string ruta, byte valor)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -145,9 +145,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
         
-        public static void EstablecerChar(ObjetoDatos od, string ruta, char valor)
+        public static void EstablecerChar(IObjetoDatos od, string ruta, char valor)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -158,9 +158,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
 
-        public static void EstablecerDateTime(ObjetoDatos od, string ruta, DateTime valor)
+        public static void EstablecerDateTime(IObjetoDatos od, string ruta, DateTime valor)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -171,9 +171,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
 
-        public static void EstablecerDecimal(ObjetoDatos od, string ruta, decimal valor)
+        public static void EstablecerDecimal(IObjetoDatos od, string ruta, decimal valor)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -184,9 +184,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
 
-        public static void EstablecerDouble(ObjetoDatos od, string ruta, double valor)
+        public static void EstablecerDouble(IObjetoDatos od, string ruta, double valor)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -197,9 +197,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
 
-        public static void EstablecerFloat(ObjetoDatos od, string ruta, float valor)
+        public static void EstablecerFloat(IObjetoDatos od, string ruta, float valor)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -210,9 +210,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
 
-        public static void EstablecerInteger(ObjetoDatos od, string ruta, int valor)
+        public static void EstablecerInteger(IObjetoDatos od, string ruta, int valor)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -223,9 +223,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
 
-        public static void EstablecerLong(ObjetoDatos od, string ruta, long valor)
+        public static void EstablecerLong(IObjetoDatos od, string ruta, long valor)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -236,9 +236,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
 
-        public static void EstablecerObject(ObjetoDatos od, string ruta, object valor)
+        public static void EstablecerObject(IObjetoDatos od, string ruta, object valor)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -249,9 +249,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
 
-        public static void EstablecerObjetoDatos(ObjetoDatos od, string ruta, ObjetoDatos valor)
+        public static void EstablecerObjetoDatos(IObjetoDatos od, string ruta, IObjetoDatos valor)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -262,14 +262,14 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
 
-        public static void EstablecerObjetoDatos(ObjetoDatos od, string ruta, int indice, ObjetoDatos item)
+        public static void EstablecerObjetoDatos(IObjetoDatos od, string ruta, int indice, IObjetoDatos item)
         {
 
         }
 
-        public static void EstablecerSByte(ObjetoDatos od, string ruta, sbyte valor)
+        public static void EstablecerSByte(IObjetoDatos od, string ruta, sbyte valor)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -280,9 +280,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
 
-        public static void EstablecerShort(ObjetoDatos od, string ruta, short valor)
+        public static void EstablecerShort(IObjetoDatos od, string ruta, short valor)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -293,9 +293,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
 
-        public static void EstablecerString(ObjetoDatos od, string ruta, string valor)
+        public static void EstablecerString(IObjetoDatos od, string ruta, string valor)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -306,9 +306,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
 
-        public static void EstablecerUInteger(ObjetoDatos od, string ruta, uint valor)
+        public static void EstablecerUInteger(IObjetoDatos od, string ruta, uint valor)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -319,9 +319,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
 
-        public static void EstablecerULong(ObjetoDatos od, string ruta, ulong valor)
+        public static void EstablecerULong(IObjetoDatos od, string ruta, ulong valor)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -332,9 +332,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
 
-        public static void EstablecerUShort(ObjetoDatos od, string ruta, ushort valor)
+        public static void EstablecerUShort(IObjetoDatos od, string ruta, ushort valor)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
 
             Resolver(od, ruta, out referencia, out propiedad);
@@ -345,9 +345,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             }
         }
 
-        public static object Obtener(ObjetoDatos od, string ruta)
+        public static object Obtener(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             object valor = default(object);
 
@@ -361,9 +361,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return valor;
         }
 
-        public static bool ObtenerBoolean(ObjetoDatos od, string ruta)
+        public static bool ObtenerBoolean(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             bool valor = default(bool);
 
@@ -377,9 +377,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return valor;
         }
 
-        public static byte ObtenerByte(ObjetoDatos od, string ruta)
+        public static byte ObtenerByte(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             byte valor = default(byte);
 
@@ -393,9 +393,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return valor;
         }
 
-        public static char ObtenerChar(ObjetoDatos od, string ruta)
+        public static char ObtenerChar(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             char valor = default(char);
 
@@ -409,9 +409,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return valor;
         }
 
-        public static IColeccion ObtenerColeccion(ObjetoDatos od, string ruta)
+        public static IColeccion ObtenerColeccion(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             IColeccion valor = null;
 
@@ -425,9 +425,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return valor;
         }
 
-        public static DateTime ObtenerDateTime(ObjetoDatos od, string ruta)
+        public static DateTime ObtenerDateTime(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             DateTime valor = default(DateTime);
 
@@ -441,9 +441,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return valor;
         }
 
-        public static decimal ObtenerDecimal(ObjetoDatos od, string ruta)
+        public static decimal ObtenerDecimal(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             decimal valor = default(decimal);
 
@@ -457,9 +457,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return valor;
         }
 
-        public static double ObtenerDouble(ObjetoDatos od, string ruta)
+        public static double ObtenerDouble(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             double valor = default(double);
 
@@ -473,9 +473,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return valor;
         }
 
-        public static float ObtenerFloat(ObjetoDatos od, string ruta)
+        public static float ObtenerFloat(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             float valor = default(float);
 
@@ -489,9 +489,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return valor;
         }
 
-        public static int ObtenerInteger(ObjetoDatos od, string ruta)
+        public static int ObtenerInteger(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             int valor = default(int);
 
@@ -505,9 +505,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return valor;
         }
 
-        public static long ObtenerLong(ObjetoDatos od, string ruta)
+        public static long ObtenerLong(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             long valor = default(long);
 
@@ -521,9 +521,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return valor;
         }
 
-        public static object ObtenerObject(ObjetoDatos od, string ruta)
+        public static object ObtenerObject(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             object valor = default(object);
 
@@ -537,9 +537,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return valor;
         }
 
-        public static ObjetoDatos ObtenerObjetoDatos(ObjetoDatos od, string ruta)
+        public static IObjetoDatos ObtenerObjetoDatos(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             //ObjetoDatos valor = default(ObjetoDatos);
 
@@ -553,14 +553,14 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return referencia;
         }
 
-        public static ObjetoDatos ObtenerObjetoDatos(ObjetoDatos od, string ruta, int indice)
+        public static IObjetoDatos ObtenerObjetoDatos(IObjetoDatos od, string ruta, int indice)
         {
             return null;
         }
 
-        public static sbyte ObtenerSByte(ObjetoDatos od, string ruta)
+        public static sbyte ObtenerSByte(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             sbyte valor = default(sbyte);
 
@@ -574,9 +574,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return valor;
         }
 
-        public static short ObtenerShort(ObjetoDatos od, string ruta)
+        public static short ObtenerShort(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             short valor = default(short);
 
@@ -590,9 +590,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return valor;
         }
 
-        public static string ObtenerString(ObjetoDatos od, string ruta)
+        public static string ObtenerString(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             
             Resolver(od, ruta, out referencia, out propiedad);
@@ -600,9 +600,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return (referencia != null && propiedad != null ? referencia.ObtenerString(propiedad) : default(string));
         }
 
-        public static uint ObtenerUInteger(ObjetoDatos od, string ruta)
+        public static uint ObtenerUInteger(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             uint valor = default(uint);
 
@@ -616,9 +616,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return valor;
         }
 
-        public static ulong ObtenerULong(ObjetoDatos od, string ruta)
+        public static ulong ObtenerULong(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             ulong valor = default(ulong);
 
@@ -632,9 +632,9 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             return valor;
         }
 
-        public static ushort ObtenerUShort(ObjetoDatos od, string ruta)
+        public static ushort ObtenerUShort(IObjetoDatos od, string ruta)
         {
-            ObjetoDatos referencia;
+            IObjetoDatos referencia;
             IPropiedad propiedad;
             ushort valor = default(ushort);
 

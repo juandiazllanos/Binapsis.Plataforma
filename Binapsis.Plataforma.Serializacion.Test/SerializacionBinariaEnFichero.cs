@@ -10,9 +10,9 @@ namespace Binapsis.Plataforma.Serializacion.Test
     [TestClass]
     public class SerializacionBinariaEnFichero
     {
-        ObjetoDatos _od;
-        ObjetoDatos _odx;
-        ObjetoDatos _odx2;
+        IObjetoDatos _od;
+        IObjetoDatos _odx;
+        IObjetoDatos _odx2;
 
         public SerializacionBinariaEnFichero()
         {
@@ -94,20 +94,20 @@ namespace Binapsis.Plataforma.Serializacion.Test
             ISecuencia fichero = new FicheroImpl("od");
             ILector lector = new LectorBinario();
             Deserializador deserializador = new Deserializador(fichero, lector);
-            ObjetoDatos od = FabricaObjetoDatos.Crear(TipoBuilder.Construir());
+            IObjetoDatos od = FabricaObjetoDatos.Crear(TipoBuilder.Construir());
 
             deserializador.Deserializar(od);
 
 
             fichero = new FicheroImpl("odx");
             deserializador = new Deserializador(fichero, lector);
-            ObjetoDatos odx = FabricaObjetoDatos.Crear(TipoBuilder.Construir());
+            IObjetoDatos odx = FabricaObjetoDatos.Crear(TipoBuilder.Construir());
 
             deserializador.Deserializar(odx);
 
             fichero = new FicheroImpl("odx2.xml");
             deserializador = new Deserializador(fichero, lector);
-            ObjetoDatos odx2 = FabricaObjetoDatos.Crear(TipoBuilder.Construir2());
+            IObjetoDatos odx2 = FabricaObjetoDatos.Crear(TipoBuilder.Construir2());
 
             deserializador.Deserializar(odx2);
 

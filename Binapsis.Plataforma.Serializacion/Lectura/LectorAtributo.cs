@@ -7,11 +7,11 @@ namespace Binapsis.Plataforma.Serializacion.Lectura
 {
     internal static class LectorAtributo
     {
-        static Dictionary<Type, Action<ILector, ObjetoDatos, IPropiedad>> _delegados;
+        static Dictionary<Type, Action<ILector, IObjetoDatos, IPropiedad>> _delegados;
 
         static LectorAtributo()
         {
-            _delegados = new Dictionary<Type, Action<ILector, ObjetoDatos, IPropiedad>>(16);
+            _delegados = new Dictionary<Type, Action<ILector, IObjetoDatos, IPropiedad>>(16);
 
             _delegados[typeof(bool)] = (lector, od, propiedad) => od.EstablecerBoolean(propiedad, lector.LeerAtributoBoolean(propiedad));
             _delegados[typeof(byte)] = (lector, od, propiedad) => od.EstablecerByte(propiedad, lector.LeerAtributoByte(propiedad));
@@ -31,7 +31,7 @@ namespace Binapsis.Plataforma.Serializacion.Lectura
             _delegados[typeof(ushort)] = (lector, od, propiedad) => od.EstablecerUShort(propiedad, lector.LeerAtributoUShort(propiedad));
         }
 
-        public static void Leer(ILector lector, ObjetoDatos od, IPropiedad propiedad)
+        public static void Leer(ILector lector, IObjetoDatos od, IPropiedad propiedad)
         {
             _delegados[TipoHelper.ObtenerType(propiedad.Tipo)].Invoke(lector, od, propiedad);
         }

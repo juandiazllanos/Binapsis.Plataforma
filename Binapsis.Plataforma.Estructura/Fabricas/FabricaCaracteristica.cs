@@ -29,7 +29,7 @@ namespace Binapsis.Plataforma.Estructura
             _fabrica[typeof(int)] = (propiedad) => new CaracteristicaInteger(propiedad);
             _fabrica[typeof(long)] = (propiedad) => new CaracteristicaLong(propiedad);
             _fabrica[typeof(object)] = (propiedad) => new CaracteristicaObject(propiedad);
-            _fabrica[typeof(ObjetoDatos)] = (propiedad) => new CaracteristicaObjetoDatos(propiedad);
+            _fabrica[typeof(IObjetoDatos)] = (propiedad) => new CaracteristicaObjetoDatos(propiedad);
             _fabrica[typeof(sbyte)] = (propiedad) => new CaracteristicaSByte(propiedad);
             _fabrica[typeof(short)] = (propiedad) => new CaracteristicaShort(propiedad);
             _fabrica[typeof(string)] = (propiedad) => new CaracteristicaString(propiedad);
@@ -52,7 +52,7 @@ namespace Binapsis.Plataforma.Estructura
             }
             else
             {
-                caracteristica = _fabrica[typeof(ObjetoDatos)].Invoke(propiedad);
+                caracteristica = _fabrica[typeof(IObjetoDatos)].Invoke(propiedad);
             }
 
             return caracteristica;

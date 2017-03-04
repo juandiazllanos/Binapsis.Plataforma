@@ -4,9 +4,9 @@ namespace Binapsis.Plataforma.Historial.Interno.Estados
 {
 	internal class EstadoObjetoDatos : HistorialEstado
     {
-		protected ObjetoDatos _valor;
+		protected IObjetoDatos _valor;
         
-		public EstadoObjetoDatos(IImplementacion impl, IPropiedad propiedad, ObjetoDatos valor)
+		public EstadoObjetoDatos(IImplementacion impl, IPropiedad propiedad, IObjetoDatos valor)
             : base(impl, propiedad)
         {
             _valor = valor;

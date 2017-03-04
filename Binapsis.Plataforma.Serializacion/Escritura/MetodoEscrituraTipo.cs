@@ -4,12 +4,12 @@ namespace Binapsis.Plataforma.Serializacion.Escritura
 {
 	internal class MetodoEscrituraTipo : MetodoEscritura
     {
-        ObjetoDatos _od;
+        IObjetoDatos _od;
 		ITipo _tipo;
         int _refid;
         IMetodoEscritura _metodoescritura;
         
-        public MetodoEscrituraTipo(IModeloEscritura modelo, IEscritor escritor, IMetodoEscritura metodoEscritura, ObjetoDatos od, int refid) 
+        public MetodoEscrituraTipo(IModeloEscritura modelo, IEscritor escritor, IMetodoEscritura metodoEscritura, IObjetoDatos od, int refid) 
             : base(modelo, escritor)
         {
             _od = od;

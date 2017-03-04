@@ -19,7 +19,7 @@ namespace Binapsis.Plataforma.Serializacion
 		/// <summary>
 		/// Deserializa la secuencia establecida en el Objeto de datos enviado como parametro. Usando el lector indicado el objeto de datos es representado desde la secuencia establecida.
 		/// </summary>		
-		public void Deserializar(ObjetoDatos od)
+		public void Deserializar(IObjetoDatos od)
         {
             try
             {

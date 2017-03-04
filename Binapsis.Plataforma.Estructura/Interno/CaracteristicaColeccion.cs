@@ -6,7 +6,7 @@ namespace Binapsis.Plataforma.Estructura.Interno
 {
     internal class CaracteristicaColeccion : Caracteristica, IColeccion 
     {
-        List<ObjetoDatos> _items;
+        List<IObjetoDatos> _items;
 
 		public CaracteristicaColeccion(IPropiedad propiedad)
             : this(propiedad, 0)
@@ -17,7 +17,7 @@ namespace Binapsis.Plataforma.Estructura.Interno
         public CaracteristicaColeccion(IPropiedad propiedad, int longitud)
             : base(propiedad)
         {
-            _items = new List<ObjetoDatos>(longitud);
+            _items = new List<IObjetoDatos>(longitud);
         }
 
         public override bool Establecido()
@@ -25,28 +25,28 @@ namespace Binapsis.Plataforma.Estructura.Interno
             return (_items.Count > 0);
         }
 
-        public override void AgregarObjetoDatos(ObjetoDatos item)
+        public override void AgregarObjetoDatos(IObjetoDatos item)
         {
             //_items.Add(item);
             AgregarObjetoDatos(item, _items.Count);
         }
 
-        public override void EstablecerObjetoDatos(int indice, ObjetoDatos item)
+        public override void EstablecerObjetoDatos(int indice, IObjetoDatos item)
         {
             _items[indice] = item;
         }
 
-        public override ObjetoDatos ObtenerObjetoDatos(int indice)
+        public override IObjetoDatos ObtenerObjetoDatos(int indice)
         {
             return _items[indice];
         }
 
-        public override void RemoverObjetoDatos(ObjetoDatos item)
+        public override void RemoverObjetoDatos(IObjetoDatos item)
         {
             _items.Remove(item);
         }
         
-        private void AgregarObjetoDatos(ObjetoDatos item, int indice)
+        private void AgregarObjetoDatos(IObjetoDatos item, int indice)
         {
             if (indice < _items.Count)
             {
@@ -59,7 +59,7 @@ namespace Binapsis.Plataforma.Estructura.Interno
         }
 
         #region IColeccion
-        ObjetoDatos IColeccion.this[int indice]
+        IObjetoDatos IColeccion.this[int indice]
         {
             get
             {
@@ -75,7 +75,7 @@ namespace Binapsis.Plataforma.Estructura.Interno
             }
         }
         
-        bool IColeccion.Contiene(ObjetoDatos item)
+        bool IColeccion.Contiene(IObjetoDatos item)
         {
             return _items.Contains(item);
         }
@@ -85,12 +85,12 @@ namespace Binapsis.Plataforma.Estructura.Interno
             return _items.GetEnumerator();
         }
 
-        IEnumerator<ObjetoDatos> IEnumerable<ObjetoDatos>.GetEnumerator()
+        IEnumerator<IObjetoDatos> IEnumerable<IObjetoDatos>.GetEnumerator()
         {
             return _items.GetEnumerator();
         }
 
-        int IColeccion.Indice(ObjetoDatos item)
+        int IColeccion.Indice(IObjetoDatos item)
         {
             return _items.IndexOf(item);
         }        

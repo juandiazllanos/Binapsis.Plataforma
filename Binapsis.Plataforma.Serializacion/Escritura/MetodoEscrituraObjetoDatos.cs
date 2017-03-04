@@ -7,10 +7,10 @@ namespace Binapsis.Plataforma.Serializacion.Escritura
     {
 		protected int _longitud;
 		protected int _refid;
-        protected ObjetoDatos _od;
+        protected IObjetoDatos _od;
 		protected IMetodoEscritura _escritorod;
 
-        public MetodoEscrituraObjetoDatos(IModeloEscritura modelo, IEscritor escritor, ObjetoDatos od, int refid)
+        public MetodoEscrituraObjetoDatos(IModeloEscritura modelo, IEscritor escritor, IObjetoDatos od, int refid)
             : base(modelo, escritor)
         {
             EscritorObjetoDatos escritorod = new EscritorObjetoDatos(escritor, od);

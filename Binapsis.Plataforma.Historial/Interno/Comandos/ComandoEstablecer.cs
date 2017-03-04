@@ -66,7 +66,7 @@ namespace Binapsis.Plataforma.Historial.Interno.Comandos
             impl.Establecer(propiedad, valor);
         }
         
-		public override void Deshacer(IImplementacion impl, IPropiedad propiedad, ObjetoDatos valor)
+		public override void Deshacer(IImplementacion impl, IPropiedad propiedad, IObjetoDatos valor)
         {
             impl.EstablecerObjetoDatos(propiedad, valor);
         }

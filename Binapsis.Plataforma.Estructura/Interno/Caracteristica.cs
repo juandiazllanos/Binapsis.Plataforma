@@ -14,7 +14,7 @@ namespace Binapsis.Plataforma.Estructura.Interno
             return false;
         }
 
-        public virtual void AgregarObjetoDatos(ObjetoDatos item)
+        public virtual void AgregarObjetoDatos(IObjetoDatos item)
         {
 
 		}
@@ -74,12 +74,12 @@ namespace Binapsis.Plataforma.Estructura.Interno
 
 		}
 
-        public virtual void EstablecerObjetoDatos(ObjetoDatos valor)
+        public virtual void EstablecerObjetoDatos(IObjetoDatos valor)
         {
 
 		}
         
-		public virtual void EstablecerObjetoDatos(int indice, ObjetoDatos item)
+		public virtual void EstablecerObjetoDatos(int indice, IObjetoDatos item)
         {
 
 		}
@@ -169,12 +169,12 @@ namespace Binapsis.Plataforma.Estructura.Interno
 			return null;
 		}
 
-		public virtual ObjetoDatos ObtenerObjetoDatos()
+		public virtual IObjetoDatos ObtenerObjetoDatos()
         {
 			return null;
 		}
         
-		public virtual ObjetoDatos ObtenerObjetoDatos(int indice)
+		public virtual IObjetoDatos ObtenerObjetoDatos(int indice)
         {
 			return null;
 		}
@@ -209,7 +209,7 @@ namespace Binapsis.Plataforma.Estructura.Interno
 			return 0;
 		}
         
-		public virtual void RemoverObjetoDatos(ObjetoDatos item)
+		public virtual void RemoverObjetoDatos(IObjetoDatos item)
         {
 
 		}

@@ -40,16 +40,16 @@ namespace Binapsis.Plataforma.Serializacion.Test
             return tipo;
         }
 
-        public static ObjetoDatos ConstruirObjetoDatos()
+        public static IObjetoDatos ConstruirObjetoDatos()
         {
-            ObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipo());
+            IObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipo());
             EstablecerValoresPorTipoPorIndice(od);
             return od;
         }
 
-        public static ObjetoDatos ConstruirObjetoDatosComplejo(int nivel = 0)
+        public static IObjetoDatos ConstruirObjetoDatosComplejo(int nivel = 0)
         {
-            ObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipoComplejo());
+            IObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipoComplejo());
             EstablecerValoresPorTipoPorIndice(od);
 
             ConstruirObjetoDatosComplejo(od, nivel);
@@ -57,9 +57,9 @@ namespace Binapsis.Plataforma.Serializacion.Test
             return od;
         }
 
-        public static ObjetoDatos ConstruirObjetoDatosComplejo(ObjetoDatos od, int nivel)
+        public static IObjetoDatos ConstruirObjetoDatosComplejo(IObjetoDatos od, int nivel)
         {
-            ObjetoDatos refod = od.CrearObjetoDatos("ReferenciaObjetoDatos");
+            IObjetoDatos refod = od.CrearObjetoDatos("ReferenciaObjetoDatos");
             EstablecerValoresPorTipoPorIndice(refod);
 
             if (nivel > 0)
@@ -76,7 +76,7 @@ namespace Binapsis.Plataforma.Serializacion.Test
             return od;
         }
 
-        public static void EstablecerValoresPorIndice(ObjetoDatos od)
+        public static void EstablecerValoresPorIndice(IObjetoDatos od)
         {
             bool valorBoolean = true;
             byte valorByte = byte.MaxValue;
@@ -111,7 +111,7 @@ namespace Binapsis.Plataforma.Serializacion.Test
             od.Establecer(14, valorUShort);
         }
 
-        public static void EstablecerValoresPorNombre(ObjetoDatos od)
+        public static void EstablecerValoresPorNombre(IObjetoDatos od)
         {
             bool valorBoolean = true;
             byte valorByte = byte.MaxValue;
@@ -146,7 +146,7 @@ namespace Binapsis.Plataforma.Serializacion.Test
             od.Establecer("atributoUShort", valorUShort);
         }
 
-        public static void EstablecerValoresPorTipoPorIndice(ObjetoDatos od)
+        public static void EstablecerValoresPorTipoPorIndice(IObjetoDatos od)
         {
             bool valorBoolean = true;
             byte valorByte = byte.MaxValue;
@@ -182,7 +182,7 @@ namespace Binapsis.Plataforma.Serializacion.Test
 
         }
 
-        public static void EstablecerValoresPorTipoPorNombre(ObjetoDatos od)
+        public static void EstablecerValoresPorTipoPorNombre(IObjetoDatos od)
         {
             bool valorBoolean = true;
             byte valorByte = byte.MaxValue;

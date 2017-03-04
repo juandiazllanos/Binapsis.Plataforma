@@ -6,10 +6,10 @@ namespace Binapsis.Plataforma.Estructura
     public interface IImplementacion
     {
         IImplementacion Crear(ITipo tipo);
-        IImplementacion Crear(ITipo tipo, ObjetoDatos propietario);
+        IImplementacion Crear(ITipo tipo, IObjetoDatos propietario);
 
         ITipo Tipo { get; }
-        ObjetoDatos Propietario { get; }
+        IObjetoDatos Propietario { get; }
 
         bool Establecido(IPropiedad propiedad);
 
@@ -24,7 +24,7 @@ namespace Binapsis.Plataforma.Estructura
         void EstablecerInteger(IPropiedad propiedad, int valor);
         void EstablecerLong(IPropiedad propiedad, long valor);
         void EstablecerObject(IPropiedad propiedad, object valor);
-        void EstablecerObjetoDatos(IPropiedad propiedad, ObjetoDatos valor);
+        void EstablecerObjetoDatos(IPropiedad propiedad, IObjetoDatos valor);
         void EstablecerSByte(IPropiedad propiedad, sbyte valor);
         void EstablecerShort(IPropiedad propiedad, short valor);
         void EstablecerString(IPropiedad propiedad, string valor);
@@ -44,7 +44,7 @@ namespace Binapsis.Plataforma.Estructura
         int ObtenerInteger(IPropiedad propiedad);
         long ObtenerLong(IPropiedad propiedad);
         object ObtenerObject(IPropiedad propiedad);
-        ObjetoDatos ObtenerObjetoDatos(IPropiedad propiedad);
+        IObjetoDatos ObtenerObjetoDatos(IPropiedad propiedad);
         sbyte ObtenerSByte(IPropiedad propiedad);
         short ObtenerShort(IPropiedad propiedad);
         string ObtenerString(IPropiedad propiedad);
@@ -53,8 +53,8 @@ namespace Binapsis.Plataforma.Estructura
         ushort ObtenerUShort(IPropiedad propiedad);
 
         //ObjetoDatos CrearObjetoDatos(IPropiedad propiedad, ObjetoDatos propietario);
-        void AgregarObjetoDatos(IPropiedad propiedad, ObjetoDatos item);
-        void RemoverObjetoDatos(IPropiedad propiedad, ObjetoDatos item);
+        void AgregarObjetoDatos(IPropiedad propiedad, IObjetoDatos item);
+        void RemoverObjetoDatos(IPropiedad propiedad, IObjetoDatos item);
 
         void Eliminar();
     }

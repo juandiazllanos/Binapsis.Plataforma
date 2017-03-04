@@ -4,17 +4,17 @@ namespace Binapsis.Plataforma.Estructura
 {
 	public static class FabricaObjetoDatos
     {		
-		public static ObjetoDatos Crear(ITipo tipo)
+		public static IObjetoDatos Crear(ITipo tipo)
         {
             return Crear(new Implementacion(tipo));
 		}
 
-        internal static ObjetoDatos Crear(ITipo tipo, ObjetoDatos propietario)
+        internal static IObjetoDatos Crear(ITipo tipo, IObjetoDatos propietario)
         {
             return Crear(new Implementacion(tipo, propietario));
         }
 
-        public static ObjetoDatos Crear(IImplementacion impl)
+        public static IObjetoDatos Crear(IImplementacion impl)
         {
             return new ObjetoDatos(impl);
         }

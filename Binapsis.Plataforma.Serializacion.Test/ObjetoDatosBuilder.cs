@@ -10,11 +10,11 @@ namespace Binapsis.Plataforma.Serializacion.Test
 {
     internal static class ObjetoDatosBuilder
     {
-        static Dictionary<Type, Action<ObjetoDatos, IPropiedad>> _delegados;
+        static Dictionary<Type, Action<IObjetoDatos, IPropiedad>> _delegados;
 
         static ObjetoDatosBuilder()
         {
-            _delegados = new Dictionary<Type, Action<ObjetoDatos, IPropiedad>>(16);
+            _delegados = new Dictionary<Type, Action<IObjetoDatos, IPropiedad>>(16);
 
             _delegados[typeof(bool)] = (od, propiedad) => od.EstablecerBoolean(propiedad, true);
             _delegados[typeof(byte)] = (od, propiedad) => od.EstablecerByte(propiedad, byte.MaxValue);
@@ -33,23 +33,23 @@ namespace Binapsis.Plataforma.Serializacion.Test
             _delegados[typeof(ushort)] = (od, propiedad) => od.EstablecerUShort(propiedad, ushort.MaxValue);
         }
 
-        public static ObjetoDatos Construir(ITipo tipo)
+        public static IObjetoDatos Construir(ITipo tipo)
         {
             return Construir(tipo, 0, 0);
         }
 
-        public static ObjetoDatos Construir(ITipo tipo, int niveles, int items)
+        public static IObjetoDatos Construir(ITipo tipo, int niveles, int items)
         {
-            ObjetoDatos od = FabricaObjetoDatos.Crear(tipo);
+            IObjetoDatos od = FabricaObjetoDatos.Crear(tipo);
             Construir(od, niveles, items);
             return od;
         }
 
-        public static ObjetoDatos Construir2(ITipo tipo, int niveles, int items)
+        public static IObjetoDatos Construir2(ITipo tipo, int niveles, int items)
         {
-            ObjetoDatos diagrama = FabricaObjetoDatos.Crear(tipo);
-            ObjetoDatos resumen = FabricaObjetoDatos.Crear(tipo["Resumen"].Tipo);
-            ObjetoDatos od = FabricaObjetoDatos.Crear(tipo["ObjetoDatos"].Tipo);
+            IObjetoDatos diagrama = FabricaObjetoDatos.Crear(tipo);
+            IObjetoDatos resumen = FabricaObjetoDatos.Crear(tipo["Resumen"].Tipo);
+            IObjetoDatos od = FabricaObjetoDatos.Crear(tipo["ObjetoDatos"].Tipo);
 
             // construir resumen 
             resumen.EstablecerInteger("creacion", 10);
@@ -68,12 +68,12 @@ namespace Binapsis.Plataforma.Serializacion.Test
             return diagrama;
         }
 
-        private static void Construir(ObjetoDatos od, int niveles, int items)
+        private static void Construir(IObjetoDatos od, int niveles, int items)
         {
             Construir(od, od.Tipo.Propiedades, niveles, items);
         }
 
-        private static void Construir(ObjetoDatos od, IEnumerable<IPropiedad> propiedades, int niveles, int items)
+        private static void Construir(IObjetoDatos od, IEnumerable<IPropiedad> propiedades, int niveles, int items)
         {
             foreach (IPropiedad propiedad in propiedades)
             {
@@ -81,7 +81,7 @@ namespace Binapsis.Plataforma.Serializacion.Test
             }
         }
 
-        private static void Construir(ObjetoDatos od, IPropiedad propiedad, int niveles, int items)
+        private static void Construir(IObjetoDatos od, IPropiedad propiedad, int niveles, int items)
         {
             if (propiedad.Tipo.EsTipoDeDato)
                 ConstruirAtributo(od, propiedad);
@@ -91,19 +91,19 @@ namespace Binapsis.Plataforma.Serializacion.Test
                 ConstruirReferencia(od, propiedad, niveles, items);
         }
 
-        private static void ConstruirAtributo(ObjetoDatos od, IPropiedad propiedad)
+        private static void ConstruirAtributo(IObjetoDatos od, IPropiedad propiedad)
         {
             _delegados[TipoHelper.ObtenerType(propiedad.Tipo)].Invoke(od, propiedad);
         }
 
-        private static void ConstruirReferencia(ObjetoDatos od, IPropiedad propiedad, int niveles, int items)
+        private static void ConstruirReferencia(IObjetoDatos od, IPropiedad propiedad, int niveles, int items)
         {
             if (niveles == 0) return;
-            ObjetoDatos referencia = od.CrearObjetoDatos(propiedad);
+            IObjetoDatos referencia = od.CrearObjetoDatos(propiedad);
             Construir(referencia, (niveles - 1), items);
         }
 
-        private static void ConstruirColeccion(ObjetoDatos od, IPropiedad propiedad, int niveles, int items)
+        private static void ConstruirColeccion(IObjetoDatos od, IPropiedad propiedad, int niveles, int items)
         {
             if (niveles == 0) return;
 

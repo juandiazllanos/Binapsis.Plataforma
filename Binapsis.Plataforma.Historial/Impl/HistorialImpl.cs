@@ -32,7 +32,7 @@ namespace Binapsis.Plataforma.Historial.Impl
             return new HistorialImpl(_impl.Crear(tipo), _historial); 
         }
 
-        public override IImplementacion Crear(ITipo tipo, ObjetoDatos propietario)
+        public override IImplementacion Crear(ITipo tipo, IObjetoDatos propietario)
         {
             return new HistorialImpl(_impl.Crear(tipo, propietario), _historial);
         }
@@ -102,7 +102,7 @@ namespace Binapsis.Plataforma.Historial.Impl
             EstablecerObject(propiedad, valor, _impl.ObtenerObject(propiedad));
         }
 
-        public override void EstablecerObjetoDatos(IPropiedad propiedad, ObjetoDatos valor)
+        public override void EstablecerObjetoDatos(IPropiedad propiedad, IObjetoDatos valor)
         {
             EstablecerObjetoDatos(propiedad, valor, _impl.ObtenerObjetoDatos(propiedad));
         }
@@ -137,13 +137,13 @@ namespace Binapsis.Plataforma.Historial.Impl
             EstablecerUShort(propiedad, valor, _impl.ObtenerUShort(propiedad));
         }
                 
-        public override void AgregarObjetoDatos(IPropiedad propiedad, ObjetoDatos item)
+        public override void AgregarObjetoDatos(IPropiedad propiedad, IObjetoDatos item)
         {
             _impl.AgregarObjetoDatos(propiedad, item);
             _historial.AgregarObjetoDatos(_impl, propiedad, item, _impl.ObtenerColeccion(propiedad).Indice(item));
         }
 
-        public override void RemoverObjetoDatos(IPropiedad propiedad, ObjetoDatos item)
+        public override void RemoverObjetoDatos(IPropiedad propiedad, IObjetoDatos item)
         {
             RemoverObjetoDatos(propiedad, item, _impl.ObtenerColeccion(propiedad).Indice(item));
         }
@@ -215,7 +215,7 @@ namespace Binapsis.Plataforma.Historial.Impl
             _historial.EstablecerObject(_impl, propiedad, valor, valorInicial);
         }
 
-        private void EstablecerObjetoDatos(IPropiedad propiedad, ObjetoDatos valor, ObjetoDatos valorInicial)
+        private void EstablecerObjetoDatos(IPropiedad propiedad, IObjetoDatos valor, IObjetoDatos valorInicial)
         {
             _impl.EstablecerObjetoDatos(propiedad, valor);
             _historial.EstablecerObjetoDatos(_impl, propiedad, valor, valorInicial);
@@ -257,13 +257,13 @@ namespace Binapsis.Plataforma.Historial.Impl
             _historial.EstablecerUShort(_impl, propiedad, valor, valorInicial);
         }
         
-        private void RemoverObjetoDatos(IPropiedad propiedad, ObjetoDatos item, int indice)
+        private void RemoverObjetoDatos(IPropiedad propiedad, IObjetoDatos item, int indice)
         {
             _impl.RemoverObjetoDatos(propiedad, item);
             _historial.RemoverObjetoDatos(_impl, propiedad, item, indice);
         }
 
-        private int ResolverIndice(IPropiedad propiedad, ObjetoDatos item)
+        private int ResolverIndice(IPropiedad propiedad, IObjetoDatos item)
         {
             int indice = 0;
 

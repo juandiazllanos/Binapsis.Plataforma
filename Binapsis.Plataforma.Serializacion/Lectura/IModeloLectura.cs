@@ -14,13 +14,13 @@ namespace Binapsis.Plataforma.Serializacion.Lectura
 {
 	internal interface IModeloLectura
     {
-        ObjetoDatos Instanciar(int refid, string uri, string tipo);
+        IObjetoDatos Instanciar(int refid, string uri, string tipo);
         void Agregar(IMetodoAsociacion asociacion);
         void Resolver(int refid, int propietario, int propiedad);
 
         IMetodoLectura Crear(Metodo metodo);        
         IMetodoLectura Crear(int refid, int longitud);
-        IMetodoLectura Crear(int refid, int longitud, ObjetoDatos od);
+        IMetodoLectura Crear(int refid, int longitud, IObjetoDatos od);
         IMetodoLectura Crear(int refid, int longitud, int propietario, int propiedad);
         
 	}

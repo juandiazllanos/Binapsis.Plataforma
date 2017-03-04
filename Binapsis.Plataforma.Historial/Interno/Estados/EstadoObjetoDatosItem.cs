@@ -6,7 +6,7 @@ namespace Binapsis.Plataforma.Historial.Interno.Estados
     {
         int _indice;
 
-        public EstadoObjetoDatosItem(IImplementacion impl, IPropiedad propiedad, ObjetoDatos valor, int indice)
+        public EstadoObjetoDatosItem(IImplementacion impl, IPropiedad propiedad, IObjetoDatos valor, int indice)
             : base(impl, propiedad, valor)
         {
             _indice = indice;

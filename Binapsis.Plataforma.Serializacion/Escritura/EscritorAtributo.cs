@@ -7,11 +7,11 @@ namespace Binapsis.Plataforma.Serializacion.Escritura
 {
     internal static class EscritorAtributo
     {
-        static Dictionary<Type, Action<IEscritor, ObjetoDatos, IPropiedad>> _delegados;
+        static Dictionary<Type, Action<IEscritor, IObjetoDatos, IPropiedad>> _delegados;
 
         static EscritorAtributo()
         {
-            _delegados = new Dictionary<Type, Action<IEscritor, ObjetoDatos, IPropiedad>>(16);
+            _delegados = new Dictionary<Type, Action<IEscritor, IObjetoDatos, IPropiedad>>(16);
 
             _delegados[typeof(bool)] = (escritor, od, propiedad) => escritor.EscribirAtributoBoolean(propiedad, od.ObtenerBoolean(propiedad));
             _delegados[typeof(byte)] = (escritor, od, propiedad) => escritor.EscribirAtributoByte(propiedad, od.ObtenerByte(propiedad));
@@ -31,7 +31,7 @@ namespace Binapsis.Plataforma.Serializacion.Escritura
             _delegados[typeof(ushort)] = (escritor, od, propiedad) => escritor.EscribirAtributoUShort(propiedad, od.ObtenerUShort(propiedad));
         }
 
-        public static void Escribir(IEscritor escritor, ObjetoDatos od, IPropiedad propiedad)
+        public static void Escribir(IEscritor escritor, IObjetoDatos od, IPropiedad propiedad)
         {
             _delegados[TipoHelper.ObtenerType(propiedad.Tipo)].Invoke(escritor, od, propiedad);
         }

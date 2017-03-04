@@ -19,7 +19,7 @@ namespace Binapsis.Plataforma.Serializacion
 		/// <summary>
 		/// Serializa el Objeto de datos enviado como parametro. Usando el escritor indicado el objeto de datos es representado en la secuencia establecida.
 		/// </summary>		
-		public void Serializar(ObjetoDatos od)
+		public void Serializar(IObjetoDatos od)
         {
             try
             {

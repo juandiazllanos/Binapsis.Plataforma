@@ -4,11 +4,11 @@ namespace Binapsis.Plataforma.Configuracion.Modelo
 {
     public class Propiedad : IPropiedad
     {
-        ObjetoDatos _od;
+        IObjetoDatos _od;
         ITipo _tipo;
         ITipo _propietario;
 
-        public Propiedad(ITipo propietario, ObjetoDatos od)
+        public Propiedad(ITipo propietario, IObjetoDatos od)
         {
             _propietario = propietario;
         }

@@ -8,10 +8,10 @@ namespace Binapsis.Plataforma.Serializacion.Escritura
 	internal class EscritorObjetoDatos : IMetodoEscritura
     {
 		IEscritor _escritor;
-		ObjetoDatos _od;
+		IObjetoDatos _od;
         IEnumerable<IPropiedad> _propiedades;
 
-		public EscritorObjetoDatos(IEscritor escritor, ObjetoDatos od)
+		public EscritorObjetoDatos(IEscritor escritor, IObjetoDatos od)
         {
             _escritor = escritor;
             _od = od;

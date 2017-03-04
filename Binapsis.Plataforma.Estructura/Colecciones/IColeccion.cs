@@ -2,14 +2,14 @@
 
 namespace Binapsis.Plataforma.Estructura.Colecciones
 {
-    public interface IColeccion : IEnumerable<ObjetoDatos>
+    public interface IColeccion : IEnumerable<IObjetoDatos>
     {
-        bool Contiene(ObjetoDatos item);
+        bool Contiene(IObjetoDatos item);
 
-        int Indice(ObjetoDatos item);
+        int Indice(IObjetoDatos item);
 
         int Longitud { get; }
         
-        ObjetoDatos this[int indice] { get; }
+        IObjetoDatos this[int indice] { get; }
     }
 }

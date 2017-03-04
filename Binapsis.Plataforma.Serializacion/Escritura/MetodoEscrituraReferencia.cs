@@ -8,7 +8,7 @@ namespace Binapsis.Plataforma.Serializacion.Escritura
 		int _propietarioid;
 		IPropiedad _propiedad;
 
-        public MetodoEscrituraReferencia(IModeloEscritura modelo, IEscritor escritor, ObjetoDatos od, int refid, int propietarioid, IPropiedad propiedad) 
+        public MetodoEscrituraReferencia(IModeloEscritura modelo, IEscritor escritor, IObjetoDatos od, int refid, int propietarioid, IPropiedad propiedad) 
             : base(modelo, escritor, od, refid)
         {
             _propietarioid = propietarioid;

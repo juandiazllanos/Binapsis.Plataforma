@@ -67,12 +67,12 @@ namespace Binapsis.Plataforma.Historial.Interno
 
 		}
         
-		public virtual void Deshacer(IImplementacion impl, IPropiedad propiedad, ObjetoDatos valor)
+		public virtual void Deshacer(IImplementacion impl, IPropiedad propiedad, IObjetoDatos valor)
         {
 
 		}
 
-        public virtual void Deshacer(IImplementacion impl, IPropiedad propiedad, ObjetoDatos valor, int indice)
+        public virtual void Deshacer(IImplementacion impl, IPropiedad propiedad, IObjetoDatos valor, int indice)
         {
 
         }

@@ -16,7 +16,7 @@ namespace Binapsis.Plataforma.Estructura.Colecciones
 
         }
 
-        public ObjetoDatos this[int indice]
+        public IObjetoDatos this[int indice]
         {
             get
             {
@@ -29,7 +29,7 @@ namespace Binapsis.Plataforma.Estructura.Colecciones
             }
         }
 
-        ObjetoDatos IColeccion.this[int indice]
+        IObjetoDatos IColeccion.this[int indice]
         {
             get
             {
@@ -45,27 +45,27 @@ namespace Binapsis.Plataforma.Estructura.Colecciones
             }
         }
 
-        public ObjetoDatos Agregar(ObjetoDatos item)
+        public IObjetoDatos Agregar(IObjetoDatos item)
         {
             throw new NotImplementedException();
         }
 
-        public bool Contiene(ObjetoDatos item)
+        public bool Contiene(IObjetoDatos item)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerator<ObjetoDatos> GetEnumerator()
+        public IEnumerator<IObjetoDatos> GetEnumerator()
         {
             throw new NotImplementedException();
         }
 
-        public int Indice(ObjetoDatos item)
+        public int Indice(IObjetoDatos item)
         {
             throw new NotImplementedException();
         }
 
-        public ObjetoDatos Insertar(ObjetoDatos item, int indice)
+        public IObjetoDatos Insertar(IObjetoDatos item, int indice)
         {
             throw new NotImplementedException();
         }
@@ -75,7 +75,7 @@ namespace Binapsis.Plataforma.Estructura.Colecciones
             throw new NotImplementedException();
         }
 
-        public void Remover(ObjetoDatos item)
+        public void Remover(IObjetoDatos item)
         {
             throw new NotImplementedException();
         }

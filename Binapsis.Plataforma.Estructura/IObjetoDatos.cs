@@ -5,12 +5,12 @@ namespace Binapsis.Plataforma.Estructura
 {
     public interface IObjetoDatos
     {
-        ObjetoDatos Propietario { get; }
+        IObjetoDatos Propietario { get; }
         ITipo Tipo { get; }
 
-        ObjetoDatos CrearObjetoDatos(string ruta);
-        ObjetoDatos CrearObjetoDatos(IPropiedad propiedad);
-        ObjetoDatos CrearObjetoDatos(int indice);
+        IObjetoDatos CrearObjetoDatos(string ruta);
+        IObjetoDatos CrearObjetoDatos(IPropiedad propiedad);
+        IObjetoDatos CrearObjetoDatos(int indice);
         void Eliminar();
         void Establecer(string ruta, object valor);
         void Establecer(IPropiedad propiedad, object valor);
@@ -45,9 +45,9 @@ namespace Binapsis.Plataforma.Estructura
         void EstablecerObject(string ruta, object valor);
         void EstablecerObject(IPropiedad propiedad, object valor);
         void EstablecerObject(int indice, object valor);
-        void EstablecerObjetoDatos(string ruta, ObjetoDatos valor);
-        void EstablecerObjetoDatos(IPropiedad propiedad, ObjetoDatos valor);
-        void EstablecerObjetoDatos(int indice, ObjetoDatos valor);
+        void EstablecerObjetoDatos(string ruta, IObjetoDatos valor);
+        void EstablecerObjetoDatos(IPropiedad propiedad, IObjetoDatos valor);
+        void EstablecerObjetoDatos(int indice, IObjetoDatos valor);
         void EstablecerSByte(string ruta, sbyte valor);
         void EstablecerSByte(IPropiedad propiedad, sbyte valor);
         void EstablecerSByte(int indice, sbyte valor);
@@ -105,9 +105,9 @@ namespace Binapsis.Plataforma.Estructura
         object ObtenerObject(string ruta);
         object ObtenerObject(IPropiedad propiedad);
         object ObtenerObject(int indice);
-        ObjetoDatos ObtenerObjetoDatos(string ruta);
-        ObjetoDatos ObtenerObjetoDatos(IPropiedad propiedad);
-        ObjetoDatos ObtenerObjetoDatos(int indice);
+        IObjetoDatos ObtenerObjetoDatos(string ruta);
+        IObjetoDatos ObtenerObjetoDatos(IPropiedad propiedad);
+        IObjetoDatos ObtenerObjetoDatos(int indice);
         sbyte ObtenerSByte(string ruta);
         sbyte ObtenerSByte(IPropiedad propiedad);
         sbyte ObtenerSByte(int indice);
@@ -126,8 +126,8 @@ namespace Binapsis.Plataforma.Estructura
         ushort ObtenerUShort(string ruta);
         ushort ObtenerUShort(IPropiedad propiedad);
         ushort ObtenerUShort(int indice);
-        void RemoverObjetoDatos(string nombre, ObjetoDatos item);
-        void RemoverObjetoDatos(IPropiedad propiedad, ObjetoDatos item);
-        void RemoverObjetoDatos(int indice, ObjetoDatos item);
+        void RemoverObjetoDatos(string nombre, IObjetoDatos item);
+        void RemoverObjetoDatos(IPropiedad propiedad, IObjetoDatos item);
+        void RemoverObjetoDatos(int indice, IObjetoDatos item);
     }
 }

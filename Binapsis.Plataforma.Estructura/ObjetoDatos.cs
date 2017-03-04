@@ -13,9 +13,9 @@ namespace Binapsis.Plataforma.Estructura
             _impl = impl;
 		}
         
-        public ObjetoDatos CrearObjetoDatos(IPropiedad propiedad)
+        public IObjetoDatos CrearObjetoDatos(IPropiedad propiedad)
         {
-            ObjetoDatos od = FabricaObjetoDatos.Crear(_impl.Crear(propiedad.Tipo, this));  //_impl.CrearObjetoDatos(propiedad, this);
+            IObjetoDatos od = FabricaObjetoDatos.Crear(_impl.Crear(propiedad.Tipo, this));  //_impl.CrearObjetoDatos(propiedad, this);
 
             if (propiedad.Cardinalidad >= Cardinalidad.Muchos)
                 _impl.AgregarObjetoDatos(propiedad, od);
@@ -25,12 +25,12 @@ namespace Binapsis.Plataforma.Estructura
             return od;
         }
 
-        public ObjetoDatos CrearObjetoDatos(int indice)
+        public IObjetoDatos CrearObjetoDatos(int indice)
         {
             return CrearObjetoDatos(Tipo.ObtenerPropiedad(indice));
         }
 
-        public ObjetoDatos CrearObjetoDatos(string ruta)
+        public IObjetoDatos CrearObjetoDatos(string ruta)
         {
             if (helper.ComprobarRuta(ref ruta))
                 return helper.CrearObjetoDatos(this, ruta);
@@ -259,17 +259,17 @@ namespace Binapsis.Plataforma.Estructura
                 _impl.EstablecerObject(Tipo.ObtenerPropiedad(ruta), valor); 
         }
 
-        public void EstablecerObjetoDatos(IPropiedad propiedad, ObjetoDatos valor)
+        public void EstablecerObjetoDatos(IPropiedad propiedad, IObjetoDatos valor)
         {
             _impl.EstablecerObjetoDatos(propiedad, valor);
         }
 
-        public void EstablecerObjetoDatos(int indice, ObjetoDatos valor)
+        public void EstablecerObjetoDatos(int indice, IObjetoDatos valor)
         {
             _impl.EstablecerObjetoDatos(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        public void EstablecerObjetoDatos(string ruta, ObjetoDatos valor)
+        public void EstablecerObjetoDatos(string ruta, IObjetoDatos valor)
         {
             if (helper.ComprobarRuta(ref ruta))
                 helper.EstablecerObjetoDatos(this, ruta, valor);
@@ -601,17 +601,17 @@ namespace Binapsis.Plataforma.Estructura
                 return _impl.ObtenerObject(Tipo[ruta]); 
         }
 
-        public ObjetoDatos ObtenerObjetoDatos(IPropiedad propiedad)
+        public IObjetoDatos ObtenerObjetoDatos(IPropiedad propiedad)
         {
             return _impl.ObtenerObjetoDatos(propiedad);
         }
 
-        public ObjetoDatos ObtenerObjetoDatos(int indice)
+        public IObjetoDatos ObtenerObjetoDatos(int indice)
         {
             return _impl.ObtenerObjetoDatos(Tipo[indice]);
         }
 
-        public ObjetoDatos ObtenerObjetoDatos(string ruta)
+        public IObjetoDatos ObtenerObjetoDatos(string ruta)
         {
             if (helper.ComprobarRuta(ref ruta))
                 return helper.ObtenerObjetoDatos(this, ruta);
@@ -727,17 +727,17 @@ namespace Binapsis.Plataforma.Estructura
                 return _impl.ObtenerUShort(Tipo[ruta]); 
         }
 
-        public void RemoverObjetoDatos(IPropiedad propiedad, ObjetoDatos item)
+        public void RemoverObjetoDatos(IPropiedad propiedad, IObjetoDatos item)
         {
             _impl.RemoverObjetoDatos(propiedad, item);
         }
 
-        public void RemoverObjetoDatos(int indice, ObjetoDatos item)
+        public void RemoverObjetoDatos(int indice, IObjetoDatos item)
         {
             _impl.RemoverObjetoDatos(Tipo[indice], item);
         }
 
-        public void RemoverObjetoDatos(string nombre, ObjetoDatos item)
+        public void RemoverObjetoDatos(string nombre, IObjetoDatos item)
         {
             _impl.RemoverObjetoDatos(Tipo[nombre], item);
         }
@@ -750,7 +750,7 @@ namespace Binapsis.Plataforma.Estructura
             }
         }
 
-        public ObjetoDatos Propietario
+        public IObjetoDatos Propietario
         {
             get
             {

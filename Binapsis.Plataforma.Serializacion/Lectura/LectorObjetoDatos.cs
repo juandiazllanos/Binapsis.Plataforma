@@ -5,10 +5,10 @@ namespace Binapsis.Plataforma.Serializacion.Lectura
 	internal class LectorObjetoDatos : IMetodoLectura
     {
 		ILector _lector;
-		ObjetoDatos _od;
+		IObjetoDatos _od;
         int _longitud;
 
-		public LectorObjetoDatos(ILector lector, ObjetoDatos od, int longitud)
+		public LectorObjetoDatos(ILector lector, IObjetoDatos od, int longitud)
         {
             _lector = lector;
             _od = od;

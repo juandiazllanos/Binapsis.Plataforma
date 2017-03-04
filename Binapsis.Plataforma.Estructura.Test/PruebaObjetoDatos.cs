@@ -11,7 +11,7 @@ namespace Binapsis.Plataforma.Estructura.Test
         [TestMethod]
         public void PruebaEstablecerPorIndice()
         {
-            ObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipo());
+            IObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipo());
             Random rnd = new Random();
 
             bool valorBoolean = true;
@@ -67,7 +67,7 @@ namespace Binapsis.Plataforma.Estructura.Test
         [TestMethod]
         public void PruebaEstablecerPorNombre()
         {
-            ObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipo());
+            IObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipo());
             Random rnd = new Random();
 
             bool valorBoolean = true;
@@ -123,7 +123,7 @@ namespace Binapsis.Plataforma.Estructura.Test
         [TestMethod]
         public void PruebaEstablecerPorTipoPorIndice()
         {
-            ObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipo());
+            IObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipo());
             Random rnd = new Random();
 
             bool valorBoolean = true;
@@ -178,7 +178,7 @@ namespace Binapsis.Plataforma.Estructura.Test
         [TestMethod]
         public void PruebaEstablecerPorTipoPorNombre()
         {
-            ObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipo());
+            IObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipo());
             Random rnd = new Random();
 
             bool valorBoolean = true;
@@ -236,7 +236,7 @@ namespace Binapsis.Plataforma.Estructura.Test
         [TestCategory("ObjetoDatosComplejo")]
         public void PruebaObjetoDatosComplejoItemsIgualATres()
         {
-            ObjetoDatos od = ConstruirObjetoDatosComplejo();
+            IObjetoDatos od = ConstruirObjetoDatosComplejo();
 
             Assert.AreEqual(od.ObtenerColeccion("ReferenciaObjetoDatosItem").Longitud, 3);
         }
@@ -245,7 +245,7 @@ namespace Binapsis.Plataforma.Estructura.Test
         [TestCategory("ObjetoDatosComplejo")]
         public void PruebaObjetoDatosComplejoReferenciaItemsIgualACero()
         {
-            ObjetoDatos od = ConstruirObjetoDatosComplejo();
+            IObjetoDatos od = ConstruirObjetoDatosComplejo();
 
             Assert.AreEqual(od.ObtenerObjetoDatos("ReferenciaObjetoDatos").ObtenerColeccion("ReferenciaObjetoDatosItem").Longitud, 0);
         }
@@ -254,7 +254,7 @@ namespace Binapsis.Plataforma.Estructura.Test
         [TestCategory("ObjetoDatosComplejo")]
         public void PruebaObjetoDatosComplejoRemoverUnItem()
         {
-            ObjetoDatos od = ConstruirObjetoDatosComplejo();
+            IObjetoDatos od = ConstruirObjetoDatosComplejo();
             od.RemoverObjetoDatos("ReferenciaObjetoDatosItem", od.ObtenerColeccion("ReferenciaObjetoDatosItem")[0]);
             Assert.AreEqual(od.ObtenerColeccion("ReferenciaObjetoDatosItem").Longitud, 2);
         }
@@ -263,9 +263,9 @@ namespace Binapsis.Plataforma.Estructura.Test
         [TestCategory("ObjetoDatosComplejo")]
         public void PruebaObjetoDatosComplejoRemoverDosItems()
         {
-            ObjetoDatos od = ConstruirObjetoDatosComplejo();
-            ObjetoDatos primerItem = od.ObtenerColeccion("ReferenciaObjetoDatosItem")[0];
-            ObjetoDatos segundoItem = od.ObtenerColeccion("ReferenciaObjetoDatosItem")[1];
+            IObjetoDatos od = ConstruirObjetoDatosComplejo();
+            IObjetoDatos primerItem = od.ObtenerColeccion("ReferenciaObjetoDatosItem")[0];
+            IObjetoDatos segundoItem = od.ObtenerColeccion("ReferenciaObjetoDatosItem")[1];
 
             od.RemoverObjetoDatos("ReferenciaObjetoDatosItem", primerItem);
             od.RemoverObjetoDatos("ReferenciaObjetoDatosItem", segundoItem);
@@ -277,10 +277,10 @@ namespace Binapsis.Plataforma.Estructura.Test
         [TestCategory("ObjetoDatosComplejo")]
         public void PruebaObjetoDatosComplejoRemoverTresItems()
         {
-            ObjetoDatos od = ConstruirObjetoDatosComplejo();
-            ObjetoDatos primerItem = od.ObtenerColeccion("ReferenciaObjetoDatosItem")[0];
-            ObjetoDatos segundoItem = od.ObtenerColeccion("ReferenciaObjetoDatosItem")[1];
-            ObjetoDatos tercerItem = od.ObtenerColeccion("ReferenciaObjetoDatosItem")[2];
+            IObjetoDatos od = ConstruirObjetoDatosComplejo();
+            IObjetoDatos primerItem = od.ObtenerColeccion("ReferenciaObjetoDatosItem")[0];
+            IObjetoDatos segundoItem = od.ObtenerColeccion("ReferenciaObjetoDatosItem")[1];
+            IObjetoDatos tercerItem = od.ObtenerColeccion("ReferenciaObjetoDatosItem")[2];
 
             od.RemoverObjetoDatos("ReferenciaObjetoDatosItem", primerItem);
             od.RemoverObjetoDatos("ReferenciaObjetoDatosItem", segundoItem);
@@ -303,16 +303,16 @@ namespace Binapsis.Plataforma.Estructura.Test
             string ruta8 = "ReferenciaObjetoDatosItem[1]/ReferenciaObjetoDatosItem[2]";
             string ruta9 = "ReferenciaObjetoDatosItem[2]/ReferenciaObjetoDatosItem[2]/ReferenciaObjetoDatos[2]";
 
-            ObjetoDatos od = ConstruirObjetoDatosComplejo(2);
-            ObjetoDatos item1 = od.ObtenerObjetoDatos(ruta1);
-            ObjetoDatos item2 = od.ObtenerObjetoDatos(ruta2);
-            ObjetoDatos item3 = od.ObtenerObjetoDatos(ruta3);
-            ObjetoDatos item4 = od.ObtenerObjetoDatos(ruta4);
-            ObjetoDatos item5 = od.ObtenerObjetoDatos(ruta5);
-            ObjetoDatos item6 = od.ObtenerObjetoDatos(ruta6);
-            ObjetoDatos item7 = od.ObtenerObjetoDatos(ruta7);
-            ObjetoDatos item8 = od.ObtenerObjetoDatos(ruta8);
-            ObjetoDatos item9 = od.ObtenerObjetoDatos(ruta9);
+            IObjetoDatos od = ConstruirObjetoDatosComplejo(2);
+            IObjetoDatos item1 = od.ObtenerObjetoDatos(ruta1);
+            IObjetoDatos item2 = od.ObtenerObjetoDatos(ruta2);
+            IObjetoDatos item3 = od.ObtenerObjetoDatos(ruta3);
+            IObjetoDatos item4 = od.ObtenerObjetoDatos(ruta4);
+            IObjetoDatos item5 = od.ObtenerObjetoDatos(ruta5);
+            IObjetoDatos item6 = od.ObtenerObjetoDatos(ruta6);
+            IObjetoDatos item7 = od.ObtenerObjetoDatos(ruta7);
+            IObjetoDatos item8 = od.ObtenerObjetoDatos(ruta8);
+            IObjetoDatos item9 = od.ObtenerObjetoDatos(ruta9);
 
             Assert.IsNotNull(item1, $"Se esperaba un valor. ruta={ruta1}");
             Assert.IsNotNull(item2, $"Se esperaba un valor. ruta={ruta2}");
@@ -331,7 +331,7 @@ namespace Binapsis.Plataforma.Estructura.Test
         public void PruebaObjetoDatosPathObtener()
         {
             
-            ObjetoDatos od = ConstruirObjetoDatosComplejo(2);
+            IObjetoDatos od = ConstruirObjetoDatosComplejo(2);
 
             string ruta = "ReferenciaObjetoDatos";
 
@@ -375,7 +375,7 @@ namespace Binapsis.Plataforma.Estructura.Test
         public void PruebaObjetoDatosPathObtenerPorTipo()
         {
 
-            ObjetoDatos od = ConstruirObjetoDatosComplejo(2);
+            IObjetoDatos od = ConstruirObjetoDatosComplejo(2);
 
             string ruta = "ReferenciaObjetoDatos";
 

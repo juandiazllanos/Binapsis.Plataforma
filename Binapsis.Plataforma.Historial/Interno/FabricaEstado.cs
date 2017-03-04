@@ -26,9 +26,9 @@ namespace Binapsis.Plataforma.Historial.Interno
         
         public static HistorialEstado Crear(IImplementacion impl, IPropiedad propiedad, object valor) => new EstadoObject(impl, propiedad, valor);
 
-        public static HistorialEstado Crear(IImplementacion impl, IPropiedad propiedad, ObjetoDatos valor) => new EstadoObjetoDatos(impl, propiedad, valor);
+        public static HistorialEstado Crear(IImplementacion impl, IPropiedad propiedad, IObjetoDatos valor) => new EstadoObjetoDatos(impl, propiedad, valor);
 
-        public static HistorialEstado Crear(IImplementacion impl, IPropiedad propiedad, ObjetoDatos valor, int indice) => new EstadoObjetoDatosItem(impl, propiedad, valor, indice);
+        public static HistorialEstado Crear(IImplementacion impl, IPropiedad propiedad, IObjetoDatos valor, int indice) => new EstadoObjetoDatosItem(impl, propiedad, valor, indice);
 
         public static HistorialEstado Crear(IImplementacion impl, IPropiedad propiedad, sbyte valor) => new EstadoSByte(impl, propiedad, valor);
 

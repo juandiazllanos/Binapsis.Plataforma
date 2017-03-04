@@ -16,7 +16,7 @@ namespace Binapsis.Plataforma.Historial.Interno.Comandos
             _estado.Deshacer(this);
         }
 
-        public override void Deshacer(IImplementacion impl, IPropiedad propiedad, ObjetoDatos valor, int indice)
+        public override void Deshacer(IImplementacion impl, IPropiedad propiedad, IObjetoDatos valor, int indice)
         {
 
 		}

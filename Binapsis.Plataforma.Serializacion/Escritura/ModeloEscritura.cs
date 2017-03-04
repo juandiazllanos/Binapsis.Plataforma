@@ -6,29 +6,29 @@ namespace Binapsis.Plataforma.Serializacion.Escritura
 {
 	internal class ModeloEscritura : IMetodoEscritura, IModeloEscritura
     {
-		private List<ObjetoDatos> _od;
+		private List<IObjetoDatos> _od;
 		private Identidad _stack;
 		private IEscritor _escritor;
 
-        public ModeloEscritura(IEscritor escritor, ObjetoDatos od)
+        public ModeloEscritura(IEscritor escritor, IObjetoDatos od)
         {
             _escritor = escritor;
             _stack = new Identidad();
-            _od = new List<ObjetoDatos>() { od };            
+            _od = new List<IObjetoDatos>() { od };            
         }
 
         #region IModelo        
-        IMetodoEscritura IModeloEscritura.Crear(ObjetoDatos od)
+        IMetodoEscritura IModeloEscritura.Crear(IObjetoDatos od)
         {
             return Crear(od);
         }
 
-        IMetodoEscritura IModeloEscritura.Crear(ObjetoDatos propietario, IPropiedad propiedad)
+        IMetodoEscritura IModeloEscritura.Crear(IObjetoDatos propietario, IPropiedad propiedad)
         {
             return Crear(propietario, propiedad, 0);
         }
 
-        IMetodoEscritura IModeloEscritura.Crear(ObjetoDatos propietario, IPropiedad propiedad, int indice)
+        IMetodoEscritura IModeloEscritura.Crear(IObjetoDatos propietario, IPropiedad propiedad, int indice)
         {
             return Crear(propietario, propiedad, indice);
         }
@@ -41,7 +41,7 @@ namespace Binapsis.Plataforma.Serializacion.Escritura
         }
         #endregion
         
-        private IMetodoEscritura Crear(ObjetoDatos od)
+        private IMetodoEscritura Crear(IObjetoDatos od)
         {
             IMetodoEscritura metodo;
             IMetodoEscritura metodood;
@@ -53,10 +53,10 @@ namespace Binapsis.Plataforma.Serializacion.Escritura
             return metodo;
         }
         
-        private IMetodoEscritura Crear(ObjetoDatos propietario, IPropiedad propiedad, int indice)
+        private IMetodoEscritura Crear(IObjetoDatos propietario, IPropiedad propiedad, int indice)
         {
             IMetodoEscritura metodo;
-            ObjetoDatos od;
+            IObjetoDatos od;
             int refid;
             int propietarioid;
 
