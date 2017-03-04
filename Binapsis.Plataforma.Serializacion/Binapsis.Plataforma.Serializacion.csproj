@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A7961B7C-6D4F-47E7-8D00-F95E1134E817}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Binapsis.Plataforma.Serializacion</RootNamespace>
+    <AssemblyName>Binapsis.Plataforma.Serializacion</AssemblyName>
+    <DefaultLanguage>es-ES</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="project.json" />
+    <!-- A reference to the entire .NET Framework is automatically included -->
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Binario\EscritorBinario.cs" />
+    <Compile Include="Binario\LectorBinario.cs" />
+    <Compile Include="Deserializador.cs" />
+    <Compile Include="Escritura\EscritorAtributo.cs" />
+    <Compile Include="Escritura\EscritorObjetoDatos.cs" />
+    <Compile Include="Escritura\IMetodoEscritura.cs" />
+    <Compile Include="Escritura\IModeloEscritura.cs" />
+    <Compile Include="Escritura\MetodoEscritura.cs" />
+    <Compile Include="Escritura\MetodoEscrituraAsociacion.cs" />
+    <Compile Include="Escritura\MetodoEscrituraObjetoDatos.cs" />
+    <Compile Include="Escritura\MetodoEscrituraReferencia.cs" />
+    <Compile Include="Escritura\MetodoEscrituraTipo.cs" />
+    <Compile Include="Escritura\ModeloEscritura.cs" />
+    <Compile Include="Identidad.cs" />
+    <Compile Include="IEscritor.cs" />
+    <Compile Include="ILector.cs" />
+    <Compile Include="ISecuencia.cs" />
+    <Compile Include="Lectura\IMetodoAsociacion.cs" />
+    <Compile Include="Lectura\IMetodoLectura.cs" />
+    <Compile Include="Lectura\IModeloLectura.cs" />
+    <Compile Include="Lectura\LectorAtributo.cs" />
+    <Compile Include="Lectura\LectorObjetoDatos.cs" />
+    <Compile Include="Lectura\MetodoLectura.cs" />
+    <Compile Include="Lectura\MetodoLecturaAsociacion.cs" />
+    <Compile Include="Lectura\MetodoLecturaObjetoDatos.cs" />
+    <Compile Include="Lectura\MetodoLecturaReferencia.cs" />
+    <Compile Include="Lectura\MetodoLecturaTipo.cs" />
+    <Compile Include="Lectura\ModeloLectura.cs" />
+    <Compile Include="Metodo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serializador.cs" />
+    <Compile Include="Xml\EscritorXml.cs" />
+    <Compile Include="Xml\LectorXml.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Binapsis.Plataforma.Estructura\Binapsis.Plataforma.Estructura.csproj">
+      <Project>{1095c376-0173-487d-bd2e-54991e05f539}</Project>
+      <Name>Binapsis.Plataforma.Estructura</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
