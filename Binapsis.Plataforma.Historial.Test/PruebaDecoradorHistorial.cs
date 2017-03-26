@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Binapsis.Plataforma.Estructura;
 using static Binapsis.Plataforma.Historial.Test.Helper;
-using Binapsis.Plataforma.Estructura.Implementaciones;
+using Binapsis.Plataforma.Estructura.Impl;
 
 namespace Binapsis.Plataforma.Historial.Test
 {
@@ -14,8 +14,9 @@ namespace Binapsis.Plataforma.Historial.Test
         {
             // arrange
             Log controlador = new Log();
-            FabricaHistorial fabrica = new FabricaHistorial();
-            IObjetoDatos od = FabricaObjetoDatos.Crear(fabrica.Crear(ConstruirTipo(), controlador));
+            //FabricaHistorial fabrica = new FabricaHistorial();
+            IFabrica fabrica = new FabricaHistorial(controlador);
+            IObjetoDatos od = fabrica.Crear(ConstruirTipo());
 
             // act 
             bool valorBoolean = od.ObtenerBoolean(0);
@@ -70,8 +71,9 @@ namespace Binapsis.Plataforma.Historial.Test
         {
             // arrange
             Log controlador = new Log();
-            FabricaHistorial fabrica = new FabricaHistorial();
-            IObjetoDatos od = FabricaObjetoDatos.Crear(fabrica.Crear(ConstruirTipoComplejo(), controlador));
+            //FabricaHistorial fabrica = new FabricaHistorial();
+            IFabrica fabrica = new FabricaHistorial(controlador);
+            IObjetoDatos od = fabrica.Crear(ConstruirTipoComplejo());
 
             // act
             ConstruirObjetoDatosComplejo(od, 2);
@@ -90,8 +92,9 @@ namespace Binapsis.Plataforma.Historial.Test
         {
             // arrange
             Log log = new Log();
-            FabricaHistorial fabrica = new FabricaHistorial();
-            IObjetoDatos od = FabricaObjetoDatos.Crear(fabrica.Crear(ConstruirTipo(), log));
+            //FabricaHistorial fabrica = new FabricaHistorial();
+            IFabrica fabrica = new FabricaHistorial(log);
+            IObjetoDatos od = fabrica.Crear(ConstruirTipo());
 
             // act 
             bool valorBoolean = od.ObtenerBoolean(0);
@@ -148,8 +151,9 @@ namespace Binapsis.Plataforma.Historial.Test
         {
             // arrange
             Log log = new Log();
-            FabricaImplementacion fabrica = new FabricaHistorial();
-            IObjetoDatos od = FabricaObjetoDatos.Crear(fabrica.Crear(ConstruirTipoComplejo(), log));
+            //FabricaImplementacion fabrica = new FabricaHistorial();
+            IFabrica fabrica = new FabricaHistorial(log);
+            IObjetoDatos od = fabrica.Crear(ConstruirTipoComplejo());
 
             // act
             var instantanea1 = log.CrearInstantanea();

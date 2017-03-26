@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Binapsis.Plataforma.Estructura.Colecciones;
 
 namespace Binapsis.Plataforma.Estructura.Interno
 {

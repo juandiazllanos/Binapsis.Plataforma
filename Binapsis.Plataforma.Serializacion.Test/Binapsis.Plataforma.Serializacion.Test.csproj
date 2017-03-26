@@ -62,20 +62,24 @@
   <ItemGroup>
     <Compile Include="FicheroImpl.cs" />
     <Compile Include="Helper.cs" />
-    <Compile Include="ObjetoDatosBuilder.cs" />
+    <Compile Include="BuilderObjetoDatos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SerializacionBinariaEnFichero.cs" />
-    <Compile Include="SerializacionXmlEnFichero.cs" />
-    <Compile Include="TipoBuilder.cs" />
+    <Compile Include="SerializacionEnFichero.cs" />
+    <Compile Include="BuilderTipo.cs" />
+    <Compile Include="ConstruirDiagrama.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Binapsis.Plataforma.Estructura\Binapsis.Plataforma.Estructura.csproj">
       <Project>{1095c376-0173-487d-bd2e-54991e05f539}</Project>
       <Name>Binapsis.Plataforma.Estructura</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Binapsis.Plataforma.Historial\Binapsis.Plataforma.Historial.csproj">
-      <Project>{07ebc2ad-0697-43a3-a62d-333d75fbd4e5}</Project>
-      <Name>Binapsis.Plataforma.Historial</Name>
+    <ProjectReference Include="..\Binapsis.Plataforma.Serializacion.Binario\Binapsis.Plataforma.Serializacion.Binario.csproj">
+      <Project>{8102fe4d-58ed-4c59-80af-e1b19f758ee8}</Project>
+      <Name>Binapsis.Plataforma.Serializacion.Binario</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Binapsis.Plataforma.Serializacion.Xml\Binapsis.Plataforma.Serializacion.Xml.csproj">
+      <Project>{ae6bf23c-e25a-4d0e-94de-81246ae2bcb5}</Project>
+      <Name>Binapsis.Plataforma.Serializacion.Xml</Name>
     </ProjectReference>
     <ProjectReference Include="..\Binapsis.Plataforma.Serializacion\Binapsis.Plataforma.Serializacion.csproj">
       <Project>{a7961b7c-6d4f-47e7-8d00-f95e1134e817}</Project>

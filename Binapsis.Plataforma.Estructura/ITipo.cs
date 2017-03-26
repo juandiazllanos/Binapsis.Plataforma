@@ -1,9 +1,8 @@
-using Binapsis.Plataforma.Estructura.Colecciones;
 using System.Collections.Generic;
 
 namespace Binapsis.Plataforma.Estructura
 {
-	public interface ITipo
+    public interface ITipo
     { 
 		string Alias { get; }
 

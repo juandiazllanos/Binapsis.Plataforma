@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Binapsis.Plataforma.Estructura.Helpers;
 using static Binapsis.Plataforma.Estructura.Test.Helper;
+using Binapsis.Plataforma.Estructura.Impl;
 
 namespace Binapsis.Plataforma.Estructura.Test
 {
@@ -11,7 +12,7 @@ namespace Binapsis.Plataforma.Estructura.Test
         [TestMethod]
         public void PruebaEstablecerPorIndice()
         {
-            IObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipo());
+            IObjetoDatos od = Fabrica.Instancia.Crear(ConstruirTipo());
             Random rnd = new Random();
 
             bool valorBoolean = true;
@@ -67,7 +68,7 @@ namespace Binapsis.Plataforma.Estructura.Test
         [TestMethod]
         public void PruebaEstablecerPorNombre()
         {
-            IObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipo());
+            IObjetoDatos od = Fabrica.Instancia.Crear(ConstruirTipo());
             Random rnd = new Random();
 
             bool valorBoolean = true;
@@ -123,7 +124,7 @@ namespace Binapsis.Plataforma.Estructura.Test
         [TestMethod]
         public void PruebaEstablecerPorTipoPorIndice()
         {
-            IObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipo());
+            IObjetoDatos od = Fabrica.Instancia.Crear(ConstruirTipo());
             Random rnd = new Random();
 
             bool valorBoolean = true;
@@ -178,7 +179,7 @@ namespace Binapsis.Plataforma.Estructura.Test
         [TestMethod]
         public void PruebaEstablecerPorTipoPorNombre()
         {
-            IObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipo());
+            IObjetoDatos od = Fabrica.Instancia.Crear(ConstruirTipo());
             Random rnd = new Random();
 
             bool valorBoolean = true;

@@ -1,9 +1,8 @@
-﻿using System;
-using Binapsis.Plataforma.Estructura.Colecciones;
+using System;
 
 namespace Binapsis.Plataforma.Estructura
 {
-    public interface IImplementacion
+    public interface IImplementacion 
     {
         IImplementacion Crear(ITipo tipo);
         IImplementacion Crear(ITipo tipo, IObjetoDatos propietario);

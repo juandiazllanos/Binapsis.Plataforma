@@ -1,11 +1,11 @@
 using System;
 using Binapsis.Plataforma.Estructura;
-using Binapsis.Plataforma.Estructura.Implementaciones;
+using Binapsis.Plataforma.Estructura.Impl;
 using Binapsis.Plataforma.Historial.Interno;
 
 namespace Binapsis.Plataforma.Historial.Impl
 {
-	internal class HistorialImpl : ImplementacionDecorador
+	internal class HistorialImpl : ImplementacionBase
     {
 		private HistorialObjetoDatos _historial;
 		

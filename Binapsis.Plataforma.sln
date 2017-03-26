@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Binapsis.Plataforma.Estructura", "Binapsis.Plataforma.Estructura\Binapsis.Plataforma.Estructura.csproj", "{1095C376-0173-487D-BD2E-54991E05F539}"
 EndProject
@@ -18,6 +18,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Binapsis.Plataforma.Configuracion", "Binapsis.Plataforma.Configuracion\Binapsis.Plataforma.Configuracion.csproj", "{431FB5CB-564F-4259-9E38-FA2CFB733625}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Binapsis.Plataforma.Configuracion.Modelo", "Binapsis.Plataforma.Configuracion.Modelo\Binapsis.Plataforma.Configuracion.Modelo.csproj", "{240594E7-EDF5-4954-B9EA-3C279A14030A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Binapsis.Plataforma.Serializacion.Xml", "Binapsis.Plataforma.Serializacion.Xml\Binapsis.Plataforma.Serializacion.Xml.csproj", "{AE6BF23C-E25A-4D0E-94DE-81246AE2BCB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Binapsis.Plataforma.Serializacion.Binario", "Binapsis.Plataforma.Serializacion.Binario\Binapsis.Plataforma.Serializacion.Binario.csproj", "{8102FE4D-58ED-4C59-80AF-E1B19F758EE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{240594E7-EDF5-4954-B9EA-3C279A14030A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{240594E7-EDF5-4954-B9EA-3C279A14030A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{240594E7-EDF5-4954-B9EA-3C279A14030A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE6BF23C-E25A-4D0E-94DE-81246AE2BCB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE6BF23C-E25A-4D0E-94DE-81246AE2BCB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE6BF23C-E25A-4D0E-94DE-81246AE2BCB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE6BF23C-E25A-4D0E-94DE-81246AE2BCB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8102FE4D-58ED-4C59-80AF-E1B19F758EE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8102FE4D-58ED-4C59-80AF-E1B19F758EE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8102FE4D-58ED-4C59-80AF-E1B19F758EE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8102FE4D-58ED-4C59-80AF-E1B19F758EE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -39,18 +39,20 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enumeraciones\Asociacion.cs" />
-    <Compile Include="Implementaciones\ImplementacionDecorador.cs" />
-    <Compile Include="Fabricas\FabricaImplementacion.cs" />
-    <Compile Include="Helpers\Primarios.cs" />
-    <Compile Include="Implementaciones\Propiedad.cs" />
-    <Compile Include="Implementaciones\Tipo.cs" />
-    <Compile Include="Enumeraciones\Cardinalidad.cs" />
-    <Compile Include="Colecciones\Coleccion.cs" />
-    <Compile Include="Colecciones\IColeccion.cs" />
-    <Compile Include="Fabricas\FabricaObjetoDatos.cs" />
-    <Compile Include="Helpers\PathHelper.cs" />
-    <Compile Include="Helpers\TipoHelper.cs" />
+    <Compile Include="Enum\Asociacion.cs" />
+    <Compile Include="Impl\Fabrica.cs" />
+    <Compile Include="Impl\FabricaBase.cs" />
+    <Compile Include="IFabrica.cs" />
+    <Compile Include="Impl\FabricaImplementacion.cs" />
+    <Compile Include="Impl\ImplementacionBase.cs" />
+    <Compile Include="Helper\Primarios.cs" />
+    <Compile Include="Impl\ObjetoBase.cs" />
+    <Compile Include="Impl\Propiedad.cs" />
+    <Compile Include="Impl\Tipo.cs" />
+    <Compile Include="Enum\Cardinalidad.cs" />
+    <Compile Include="IColeccion.cs" />
+    <Compile Include="Helper\PathHelper.cs" />
+    <Compile Include="Helper\TipoHelper.cs" />
     <Compile Include="Interno\Caracteristica.cs" />
     <Compile Include="Interno\CaracteristicaBoolean.cs" />
     <Compile Include="Interno\CaracteristicaByte.cs" />
@@ -70,16 +72,17 @@
     <Compile Include="Interno\CaracteristicaUInteger.cs" />
     <Compile Include="Interno\CaracteristicaULong.cs" />
     <Compile Include="Interno\CaracteristicaUShort.cs" />
-    <Compile Include="Fabricas\FabricaCaracteristica.cs" />
+    <Compile Include="Interno\FabricaCaracteristica.cs" />
     <Compile Include="Interno\Contenido.cs" />
-    <Compile Include="Implementaciones\Implementacion.cs" />
+    <Compile Include="Impl\Implementacion.cs" />
     <Compile Include="IImplementacion.cs" />
     <Compile Include="IObjetoDatos.cs" />
     <Compile Include="IPropiedad.cs" />
     <Compile Include="ITipo.cs" />
-    <Compile Include="ObjetoDatos.cs" />
+    <Compile Include="Impl\ObjetoDatos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

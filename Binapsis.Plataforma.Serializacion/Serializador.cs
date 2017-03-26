@@ -1,45 +1,45 @@
 using Binapsis.Plataforma.Estructura;
-using Binapsis.Plataforma.Serializacion.Escritura;
+using Binapsis.Plataforma.Serializacion.Interno;
 using System.IO;
 
 namespace Binapsis.Plataforma.Serializacion
 {
-	public class Serializador
+    public class Serializador
     {
-		private ISecuencia _secuencia;
-		private IEscritor _escritor;
-		private IMetodoEscritura _metodo;
-        
-		public Serializador(ISecuencia secuencia, IEscritor escritor)
+        IEscritor _escritor;
+        ISecuencia _secuencia;
+
+        public Serializador(ISecuencia secuencia, IEscritor escritor)
         {
             _secuencia = secuencia;
-            _escritor = escritor;
-		}
+            _escritor = escritor;            
+        }
 
-		/// <summary>
-		/// Serializa el Objeto de datos enviado como parametro. Usando el escritor indicado el objeto de datos es representado en la secuencia establecida.
-		/// </summary>		
-		public void Serializar(IObjetoDatos od)
+        /// <summary>
+        /// Serializa el Objeto de datos enviado como parametro. Usando el escritor indicado el objeto de datos es representado en la secuencia establecida.
+        /// </summary>		
+        public void Serializar(IObjetoDatos od)
         {
+            Stream stream = null;
+            Diagrama diag = null;
+            BuilderDiagrama helper = new BuilderDiagrama();
+
             try
             {
-                Stream stream = _secuencia.Crear();
-                // inicializar la secuencia
+                diag = helper.Crear(od);
+
+                stream = _secuencia.Crear();
                 stream.SetLength(0);
-                // inicializar escritor con la secuencia especificada
-                _escritor.Abrir(stream);
-                // inicializar el método de escritura
-                _metodo = new ModeloEscritura(_escritor, od);
-                // invocar método
-                _metodo.Escribir();
-            }
+
+                _escritor.Stream = stream;
+                _escritor.Escribir(diag.Root);
+            }            
             finally
             {
-                // liberar recursos del escritor
-                _escritor.Cerrar();
+                stream?.Dispose();
             }
-		}
-
+        }
+        
 	}
 
 }

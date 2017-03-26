@@ -1,6 +1,6 @@
 ﻿using Binapsis.Plataforma.Estructura;
 using Binapsis.Plataforma.Estructura.Helpers;
-using Binapsis.Plataforma.Estructura.Implementaciones;
+using Binapsis.Plataforma.Estructura.Impl;
 using System;
 
 namespace Binapsis.Plataforma.Serializacion.Test
@@ -11,6 +11,7 @@ namespace Binapsis.Plataforma.Serializacion.Test
         {
             Tipo tipo = new Tipo { Nombre = "ObjetoDatos", Alias = "objetoDatos", Uri = "Binapsis.Plataforma.Estructura" };
 
+            tipo.AgregarPropiedad(new Propiedad { Nombre = "ruta", Tipo = Primarios.String });
             tipo.AgregarPropiedad(new Propiedad { Nombre = "atributoBoolean", Tipo = Primarios.Boolean });
             tipo.AgregarPropiedad(new Propiedad { Nombre = "atributoByte", Tipo = Primarios.Byte });
             tipo.AgregarPropiedad(new Propiedad { Nombre = "atributoChar", Tipo = Primarios.Char });
@@ -30,11 +31,25 @@ namespace Binapsis.Plataforma.Serializacion.Test
             return tipo;
         }
 
+        public static ITipo ConstruirTipo2()
+        {
+            Tipo tipo = new Tipo { Nombre = "ObjetoDatos2", Alias = "objetoDatos2", Uri = "Binapsis.Plataforma.Estructura" };
+
+            tipo.AgregarPropiedad(new Propiedad { Nombre = "ruta", Tipo = Primarios.String });
+            tipo.AgregarPropiedad(new Propiedad { Nombre = "ReferenciaObjetoDatos", Tipo = tipo, Cardinalidad = Cardinalidad.Uno, Asociacion = Asociacion.Composicion });
+            tipo.AgregarPropiedad(new Propiedad { Nombre = "ReferenciaObjetoDatos2", Tipo = tipo, Cardinalidad = Cardinalidad.Cero_Uno, Asociacion = Asociacion.Agregacion });
+
+            return tipo;
+        }
+
         public static ITipo ConstruirTipoComplejo()
         {
             Tipo tipo = (Tipo)ConstruirTipo();
+            Tipo tipo2 = (Tipo)ConstruirTipo2();
 
             tipo.AgregarPropiedad(new Propiedad { Nombre = "ReferenciaObjetoDatos", Tipo = tipo, Asociacion = Asociacion.Composicion, Cardinalidad = Cardinalidad.Uno });
+            tipo.AgregarPropiedad(new Propiedad { Nombre = "ReferenciaObjetoDatos2", Tipo = tipo2, Asociacion = Asociacion.Agregacion, Cardinalidad = Cardinalidad.Uno });
+            tipo.AgregarPropiedad(new Propiedad { Nombre = "ReferenciaObjetoDatosItem2", Tipo = tipo, Asociacion = Asociacion.Agregacion, Cardinalidad = Cardinalidad.Uno });
             tipo.AgregarPropiedad(new Propiedad { Nombre = "ReferenciaObjetoDatosItem", Tipo = tipo, Asociacion = Asociacion.Composicion, Cardinalidad = Cardinalidad.Cero_Muchos });
 
             return tipo;
@@ -42,14 +57,14 @@ namespace Binapsis.Plataforma.Serializacion.Test
 
         public static IObjetoDatos ConstruirObjetoDatos()
         {
-            IObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipo());
+            IObjetoDatos od = Fabrica.Instancia.Crear(ConstruirTipo());
             EstablecerValoresPorTipoPorIndice(od);
             return od;
         }
 
-        public static IObjetoDatos ConstruirObjetoDatosComplejo(int nivel = 0)
+        public static IObjetoDatos ConstruirObjetoDatos(ITipo tipo, int nivel)
         {
-            IObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipoComplejo());
+            IObjetoDatos od = Fabrica.Instancia.Crear(tipo);
             EstablecerValoresPorTipoPorIndice(od);
 
             ConstruirObjetoDatosComplejo(od, nivel);
@@ -57,9 +72,16 @@ namespace Binapsis.Plataforma.Serializacion.Test
             return od;
         }
 
+        public static IObjetoDatos ConstruirObjetoDatosComplejo(int nivel = 0)
+        {
+            IObjetoDatos od = ConstruirObjetoDatos(ConstruirTipoComplejo(), nivel);
+            return od;
+        }
+
         public static IObjetoDatos ConstruirObjetoDatosComplejo(IObjetoDatos od, int nivel)
         {
             IObjetoDatos refod = od.CrearObjetoDatos("ReferenciaObjetoDatos");
+            refod.Establecer("ruta", string.Format("{0}/{1}", od.ObtenerString("ruta"), "ReferenciaObjetoDatos"));
             EstablecerValoresPorTipoPorIndice(refod);
 
             if (nivel > 0)
@@ -68,6 +90,7 @@ namespace Binapsis.Plataforma.Serializacion.Test
             for (int i = 1; i <= 3; i++)
             {
                 refod = od.CrearObjetoDatos("ReferenciaObjetoDatosItem");
+                refod.Establecer("ruta", string.Format("{0}/{1}[{2}]", od.ObtenerString("ruta"), "ReferenciaObjetoDatosItem", i - 1));
                 EstablecerValoresPorTipoPorIndice(refod);
                 if (nivel > 0)
                     ConstruirObjetoDatosComplejo(refod, nivel - 1);

@@ -1,5 +1,4 @@
 ﻿using System;
-using Binapsis.Plataforma.Estructura.Colecciones;
 
 namespace Binapsis.Plataforma.Estructura
 {

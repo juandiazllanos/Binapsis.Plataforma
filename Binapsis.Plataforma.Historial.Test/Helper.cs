@@ -1,6 +1,6 @@
 ﻿using Binapsis.Plataforma.Estructura;
 using Binapsis.Plataforma.Estructura.Helpers;
-using Binapsis.Plataforma.Estructura.Implementaciones;
+using Binapsis.Plataforma.Estructura.Impl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,14 +46,14 @@ namespace Binapsis.Plataforma.Historial.Test
 
         public static IObjetoDatos ConstruirObjetoDatos()
         {
-            IObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipo());
+            IObjetoDatos od = Fabrica.Instancia.Crear(ConstruirTipo());
             EstablecerValoresPorTipoPorIndice(od);            
             return od;
         }
 
         public static IObjetoDatos ConstruirObjetoDatosComplejo(int nivel = 0)
         {
-            IObjetoDatos od = FabricaObjetoDatos.Crear(ConstruirTipoComplejo());
+            IObjetoDatos od = Fabrica.Instancia.Crear(ConstruirTipoComplejo());
             EstablecerValoresPorTipoPorIndice(od);
 
             ConstruirObjetoDatosComplejo(od, nivel);
