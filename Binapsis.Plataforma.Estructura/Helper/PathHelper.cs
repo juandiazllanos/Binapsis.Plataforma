@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Binapsis.Plataforma.Estructura.Impl;
 
 namespace Binapsis.Plataforma.Estructura.Helpers
 {
@@ -94,20 +93,6 @@ namespace Binapsis.Plataforma.Estructura.Helpers
             {
                 return null;
             }
-        }
-
-
-        internal static void RemoverObjetoDatos(IObjetoDatos od, string ruta, IObjetoDatos item)
-        {
-            IObjetoDatos referencia;
-            IPropiedad propiedad;
-
-            Resolver(od, ruta, out referencia, out propiedad);
-
-            if (referencia != null && propiedad != null)
-            {
-                referencia.RemoverObjetoDatos(propiedad, item);
-            }            
         }
 
         public static bool Establecido(IObjetoDatos od, string ruta)
@@ -667,6 +652,5 @@ namespace Binapsis.Plataforma.Estructura.Helpers
 
             return valor;
         }
-
     }
 }

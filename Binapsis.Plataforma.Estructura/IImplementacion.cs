@@ -4,6 +4,7 @@ namespace Binapsis.Plataforma.Estructura
 {
     public interface IImplementacion 
     {
+        IImplementacion Crear(ITipo tipo);
         IImplementacion Crear(ITipo tipo, IObjetoDatos propietario);
 
         ITipo Tipo { get; }
@@ -49,7 +50,8 @@ namespace Binapsis.Plataforma.Estructura
         uint ObtenerUInteger(IPropiedad propiedad);
         ulong ObtenerULong(IPropiedad propiedad);
         ushort ObtenerUShort(IPropiedad propiedad);
-        
+
+        //ObjetoDatos CrearObjetoDatos(IPropiedad propiedad, ObjetoDatos propietario);
         void AgregarObjetoDatos(IPropiedad propiedad, IObjetoDatos item);
         void RemoverObjetoDatos(IPropiedad propiedad, IObjetoDatos item);
 

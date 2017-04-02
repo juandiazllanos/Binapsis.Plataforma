@@ -1,5 +1,3 @@
-using System;
-
 namespace Binapsis.Plataforma.Estructura.Impl
 {
 	public class Propiedad : IPropiedad
@@ -16,9 +14,7 @@ namespace Binapsis.Plataforma.Estructura.Impl
 		
 		public Cardinalidad Cardinalidad { get; set; }
 
-        public bool EsColeccion { get { return Cardinalidad >= Cardinalidad.Muchos; } }
-
-        public int Indice { get; set; }
+		public int Indice { get; set; }
 
 		public string Nombre { get; set; }
         

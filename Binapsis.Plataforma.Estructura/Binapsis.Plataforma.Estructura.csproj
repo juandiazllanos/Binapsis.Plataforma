@@ -40,13 +40,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enum\Asociacion.cs" />
-    <Compile Include="Impl\Extension.cs" />
     <Compile Include="Impl\Fabrica.cs" />
+    <Compile Include="Impl\FabricaBase.cs" />
     <Compile Include="IFabrica.cs" />
     <Compile Include="Impl\FabricaImplementacion.cs" />
     <Compile Include="Impl\ImplementacionBase.cs" />
     <Compile Include="Helper\Primarios.cs" />
-    <Compile Include="Impl\ObjetoDatos.cs" />
+    <Compile Include="Impl\ObjetoBase.cs" />
     <Compile Include="Impl\Propiedad.cs" />
     <Compile Include="Impl\Tipo.cs" />
     <Compile Include="Enum\Cardinalidad.cs" />
@@ -79,7 +79,7 @@
     <Compile Include="IObjetoDatos.cs" />
     <Compile Include="IPropiedad.cs" />
     <Compile Include="ITipo.cs" />
-    <Compile Include="Impl\ObjetoBase.cs" />
+    <Compile Include="Impl\ObjetoDatos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

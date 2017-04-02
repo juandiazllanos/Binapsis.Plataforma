@@ -8,8 +8,6 @@ namespace Binapsis.Plataforma.Estructura
 
 		Cardinalidad Cardinalidad { get; }
 
-        bool EsColeccion { get; }
-
 		int Indice { get; }
 
 		string Nombre { get; }

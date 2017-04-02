@@ -18,7 +18,7 @@ namespace Binapsis.Plataforma.Estructura
         
 		IPropiedad ObtenerPropiedad(int indice);
 
-        bool ContienePropiedad(string nombre);
+		//IEnumeracion<IPropiedad> ObtenerPropiedades();
 
         IPropiedad this[int indice] { get; }
 

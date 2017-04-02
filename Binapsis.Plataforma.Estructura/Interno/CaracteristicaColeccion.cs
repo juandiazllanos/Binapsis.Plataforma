@@ -1,10 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace Binapsis.Plataforma.Estructura.Interno
 {
-    internal class CaracteristicaColeccion : Caracteristica, IColeccion, IReadOnlyList<IObjetoDatos>
+    internal class CaracteristicaColeccion : Caracteristica, IColeccion 
     {
         List<IObjetoDatos> _items;
 
@@ -58,20 +57,6 @@ namespace Binapsis.Plataforma.Estructura.Interno
             }
         }
 
-
-        #region IEnumerable
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _items.GetEnumerator();
-        }
-
-        IEnumerator<IObjetoDatos> IEnumerable<IObjetoDatos>.GetEnumerator()
-        {
-            return _items.GetEnumerator();
-        }
-        #endregion
-
-
         #region IColeccion
         IObjetoDatos IColeccion.this[int indice]
         {
@@ -88,38 +73,26 @@ namespace Binapsis.Plataforma.Estructura.Interno
                 return _items.Count;
             }
         }
-
+        
         bool IColeccion.Contiene(IObjetoDatos item)
         {
             return _items.Contains(item);
         }
-        
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _items.GetEnumerator();
+        }
+
+        IEnumerator<IObjetoDatos> IEnumerable<IObjetoDatos>.GetEnumerator()
+        {
+            return _items.GetEnumerator();
+        }
+
         int IColeccion.Indice(IObjetoDatos item)
         {
             return _items.IndexOf(item);
-        }
-        #endregion
-
-
-        #region IReadOnlyCollection
-        int IReadOnlyCollection<IObjetoDatos>.Count
-        {
-            get
-            {
-                return _items.Count;
-            }
-        }
-        #endregion
-
-
-        #region IReadOnlyList
-        IObjetoDatos IReadOnlyList<IObjetoDatos>.this[int index]
-        {
-            get
-            {
-                return _items[index];
-            }
-        }
+        }        
         #endregion
 
     }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -48,28 +47,6 @@ namespace Binapsis.Plataforma.Estructura.Impl
             }
         }
 
-        public void AgregarPropiedad(IPropiedad propiedad)
-        {
-            if  (!propiedades.Any(item => item.Nombre == propiedad.Nombre))
-            {
-                ((Propiedad)propiedad).Indice = propiedades.Count;
-                propiedades.Add(propiedad);                
-            }            
-        }
-
-        public void RemoverPropiedad(IPropiedad propiedad)
-        {
-            if (propiedades.Contains(propiedad))
-            {
-                propiedades.Remove(propiedad);
-            }
-        }
-
-        public bool ContienePropiedad(string nombre)
-        {
-            return propiedades.Exists((item) => item.Nombre == nombre);
-        }
-
         public IPropiedad ObtenerPropiedad(string nombre)
         {
             return propiedades.FirstOrDefault(item => item.Nombre == nombre); 
@@ -79,6 +56,14 @@ namespace Binapsis.Plataforma.Estructura.Impl
         {
 			return propiedades[indice];
 		}
-
-    }    
+        
+        public void AgregarPropiedad(IPropiedad propiedad)
+        {
+            if  (!propiedades.Any(item => item.Nombre == propiedad.Nombre))
+            {
+                ((Propiedad)propiedad).Indice = propiedades.Count;
+                propiedades.Add(propiedad);                
+            }            
+        }
+	}    
 } 

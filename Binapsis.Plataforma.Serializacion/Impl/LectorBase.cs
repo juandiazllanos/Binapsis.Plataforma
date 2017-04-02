@@ -4,7 +4,7 @@ using Binapsis.Plataforma.Estructura;
 using Binapsis.Plataforma.Serializacion.Interno;
 using Binapsis.Plataforma.Estructura.Impl;
 
-namespace Binapsis.Plataforma.Serializacion.Impl
+namespace Binapsis.Plataforma.Serializacion
 {
     public abstract class LectorBase : ILector
     {

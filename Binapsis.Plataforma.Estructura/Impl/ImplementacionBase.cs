@@ -11,29 +11,7 @@ namespace Binapsis.Plataforma.Estructura.Impl
             _impl = impl;
         }
 
-        public IImplementacion Impl
-        {
-            get
-            {
-                return _impl;
-            }
-        }
-
-        public IObjetoDatos Propietario
-        {
-            get
-            {
-                return _impl.Propietario;
-            }
-        }
-
-        public ITipo Tipo
-        {
-            get
-            {
-                return _impl.Tipo;
-            }
-        }
+        public abstract IImplementacion Crear(ITipo tipo);
 
         public abstract IImplementacion Crear(ITipo tipo, IObjetoDatos propietario);
 
@@ -241,6 +219,22 @@ namespace Binapsis.Plataforma.Estructura.Impl
         {
             _impl.RemoverObjetoDatos(propiedad, item);
         }
-        
+
+        public IObjetoDatos Propietario
+        {
+            get
+            {
+                return _impl.Propietario;
+            }
+        }
+
+        public ITipo Tipo
+        {
+            get
+            {
+                return _impl.Tipo;
+            }
+        }
+
     }
 }

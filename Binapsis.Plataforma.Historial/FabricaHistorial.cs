@@ -31,10 +31,13 @@ namespace Binapsis.Plataforma.Historial
         {
             _log = log;
         }
-                
-        static new FabricaHistorial Instancia { get; } = new FabricaHistorial();
 
-        protected override IImplementacion CrearImplementacion(IImplementacion impl)
+        static FabricaHistorial()
+        {
+            Instancia = new FabricaHistorial();
+        }
+
+        protected override IImplementacion Crear(IImplementacion impl)
         {
             return new HistorialImpl(impl);
         }
