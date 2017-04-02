@@ -15,7 +15,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("es")]
-[assembly: InternalsVisibleTo("Binapsis.Plataforma.Serializacion.Test")]
+[assembly: InternalsVisibleTo("Binapsis.Plataforma.Test")]
 
 // La información de versión de un ensamblado consta de los cuatro valores siguientes:
 //

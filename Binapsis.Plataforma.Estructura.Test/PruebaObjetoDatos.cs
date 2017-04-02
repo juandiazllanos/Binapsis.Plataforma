@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Binapsis.Plataforma.Estructura.Helpers;
 using static Binapsis.Plataforma.Estructura.Test.Helper;
 using Binapsis.Plataforma.Estructura.Impl;
 

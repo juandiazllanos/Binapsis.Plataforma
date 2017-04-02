@@ -18,17 +18,11 @@ namespace Binapsis.Plataforma.Estructura.Impl
         {
             _propietario = propietario;
         }
-
-        public IImplementacion Crear(ITipo tipo)
-        {
-            return FabricaImplementacion.Instancia.Crear(tipo);
-            //return new Implementacion(tipo);
-        }
+        
 
         public IImplementacion Crear(ITipo tipo, IObjetoDatos propietario)
         {
-            return FabricaImplementacion.Instancia.Crear(tipo, propietario);
-            //return new Implementacion(tipo, propietario);
+            return FabricaImplementacion.Instancia.Crear(tipo, propietario);            
         }
         
         public void Eliminar()
