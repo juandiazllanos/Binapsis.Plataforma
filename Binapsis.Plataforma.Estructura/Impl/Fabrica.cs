@@ -25,12 +25,6 @@ namespace Binapsis.Plataforma.Estructura.Impl
         {
             return new ObjetoDatos(impl);
         }
-        
-        // La implementacion de composicion de ObjetoDatos no se aplica en este contexto.
-        public IObjetoDatos Crear(IObjetoDatos od)
-        {
-            throw new NotImplementedException();
-        }
-        
+                
     }
 }

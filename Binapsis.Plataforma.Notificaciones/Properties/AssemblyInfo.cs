@@ -6,16 +6,15 @@ using System.Runtime.InteropServices;
 // La información general de un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada con un ensamblado.
-[assembly: AssemblyTitle("Binapsis.Plataforma.Serializacion")]
+[assembly: AssemblyTitle("Binapsis.Plataforma.Notificaciones")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Binapsis.Plataforma.Serializacion")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyProduct("Binapsis.Plataforma.Notificaciones")]
+[assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("es")]
-[assembly: InternalsVisibleTo("Binapsis.Plataforma.Test")]
 
 // La información de versión de un ensamblado consta de los cuatro valores siguientes:
 //

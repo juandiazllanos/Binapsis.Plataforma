@@ -5,11 +5,11 @@
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{431FB5CB-564F-4259-9E38-FA2CFB733625}</ProjectGuid>
+    <ProjectGuid>{EC26F237-92C5-47BD-81F3-E2F48E701EE2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Binapsis.Plataforma.Configuracion</RootNamespace>
-    <AssemblyName>Binapsis.Plataforma.Configuracion</AssemblyName>
+    <RootNamespace>Binapsis.Plataforma.Notificaciones</RootNamespace>
+    <AssemblyName>Binapsis.Plataforma.Notificaciones</AssemblyName>
     <DefaultLanguage>es-ES</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -39,11 +39,17 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ensamblado.cs" />
+    <Compile Include="Impl\Extension.cs" />
+    <Compile Include="Impl\FabricaNotificacion.cs" />
+    <Compile Include="Impl\Notificacion.cs" />
+    <Compile Include="Impl\NotificacionColeccion.cs" />
+    <Compile Include="Impl\Observable.cs" />
+    <Compile Include="IObservador.cs" />
+    <Compile Include="INotificacion.cs" />
+    <Compile Include="INotificacionColeccion.cs" />
+    <Compile Include="Accion.cs" />
+    <Compile Include="Impl\ImplementacionNotificacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Propiedad.cs" />
-    <Compile Include="Tipo.cs" />
-    <Compile Include="Uri.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Binapsis.Plataforma.Estructura\Binapsis.Plataforma.Estructura.csproj">

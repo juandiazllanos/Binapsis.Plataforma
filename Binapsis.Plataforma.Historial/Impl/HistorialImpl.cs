@@ -27,10 +27,10 @@ namespace Binapsis.Plataforma.Historial.Impl
             _historial = historial;
         }
         
-        public override IImplementacion Crear(ITipo tipo)
-        {
-            return new HistorialImpl(_impl.Crear(tipo), _historial); 
-        }
+        //public override IImplementacion Crear(ITipo tipo)
+        //{
+        //    return new HistorialImpl(_impl.Crear(tipo), _historial); 
+        //}
 
         public override IImplementacion Crear(ITipo tipo, IObjetoDatos propietario)
         {
