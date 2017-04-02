@@ -1,635 +1,769 @@
-﻿using System;
+using System;
+using helper = Binapsis.Plataforma.Estructura.Helpers.PathHelper;
 
 namespace Binapsis.Plataforma.Estructura.Impl
 {
-    public abstract partial class ObjetoBase : IObjetoDatos
-    {
-        private IObjetoDatos _od;
-
-        internal ObjetoBase(IObjetoDatos od)
+    public abstract class ObjetoBase : IObjetoDatos
+    {        
+        private IImplementacion _impl;
+        
+        protected ObjetoBase(IImplementacion impl)
         {
-            _od = od;
+            _impl = impl;
+		}
+
+        protected internal IImplementacion Impl
+        {
+            get { return _impl; }
         }
 
-        protected internal IObjetoDatos Propietario
+        protected ITipo Tipo
         {
             get
             {
-                return _od.Propietario;
-            }
-        }
-
-        protected internal ITipo Tipo
-        {
-            get
-            {
-                return _od.Tipo;
+                return _impl.Tipo;
             }
         }
         
-        protected internal IObjetoDatos CrearObjetoDatos(int indice)
+        protected IObjetoDatos Propietario
         {
-            return _od.CrearObjetoDatos(indice);
+            get
+            {
+                return _impl.Propietario;
+            }
         }
 
-        protected internal IObjetoDatos CrearObjetoDatos(IPropiedad propiedad)
+
+        protected IObjetoDatos CrearObjetoDatos(IPropiedad propiedad)
         {
-            return _od.CrearObjetoDatos(propiedad);
+            IObjetoDatos od = Fabrica.Instancia.Crear(_impl.Crear(propiedad.Tipo, this)); //FabricaObjetoDatos.Crear(_impl.Crear(propiedad.Tipo, this));  //_impl.CrearObjetoDatos(propiedad, this);
+
+            if (propiedad.Cardinalidad >= Cardinalidad.Muchos)
+                _impl.AgregarObjetoDatos(propiedad, od);
+            else
+                _impl.EstablecerObjetoDatos(propiedad, od);
+
+            return od;
         }
 
-        protected internal IObjetoDatos CrearObjetoDatos(string ruta)
+        protected IObjetoDatos CrearObjetoDatos(int indice)
         {
-            return _od.CrearObjetoDatos(ruta);
+            return CrearObjetoDatos(Tipo.ObtenerPropiedad(indice));
         }
 
-        protected internal void Eliminar()
+        protected IObjetoDatos CrearObjetoDatos(string ruta)
         {
-            _od.Eliminar();
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.CrearObjetoDatos(this, ruta);
+            else
+                return CrearObjetoDatos(Tipo[ruta]);
         }
-
-        protected internal void Establecer(int indice, object valor)
+        
+        protected void Eliminar()
         {
-            _od.Establecer(indice, valor);
+            _impl.Eliminar();
         }
 
-        protected internal void Establecer(IPropiedad propiedad, object valor)
+        protected bool Establecido(IPropiedad propiedad)
         {
-            _od.Establecer(propiedad, valor);
+            return _impl.Establecido(propiedad);
         }
 
-        protected internal void Establecer(string ruta, object valor)
+        protected bool Establecido(int indice)
         {
-            _od.Establecer(ruta, valor);
+            return Establecido(Tipo[indice]);
         }
 
-        protected internal void EstablecerBoolean(int indice, bool valor)
+        protected bool Establecido(string ruta)
         {
-            _od.EstablecerBoolean(indice, valor);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.Establecido(this, ruta);
+            else
+                return Establecido(Tipo[ruta]); 
         }
 
-        protected internal void EstablecerBoolean(IPropiedad propiedad, bool valor)
+        protected void Establecer(IPropiedad propiedad, object valor)
         {
-            _od.EstablecerBoolean(propiedad, valor);
+            _impl.Establecer(propiedad, valor);
         }
 
-        protected internal void EstablecerBoolean(string ruta, bool valor)
+        protected void Establecer(int indice, object valor)
         {
-            _od.EstablecerBoolean(ruta, valor);
+            _impl.Establecer(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        protected internal void EstablecerByte(int indice, byte valor)
+        protected void Establecer(string ruta, object valor)
         {
-            _od.EstablecerByte(indice, valor);
-        }
+            if (helper.ComprobarRuta(ref ruta))
+                helper.Establecer(this, ruta, valor);
+            else
+                _impl.Establecer(Tipo.ObtenerPropiedad(ruta), valor);
+		}
 
-        protected internal void EstablecerByte(IPropiedad propiedad, byte valor)
+        protected void EstablecerBoolean(IPropiedad propiedad, bool valor)
         {
-            _od.EstablecerByte(propiedad, valor);
+            _impl.EstablecerBoolean(propiedad, valor);
         }
 
-        protected internal void EstablecerByte(string ruta, byte valor)
+        protected void EstablecerBoolean(int indice, bool valor)
         {
-            _od.EstablecerByte(ruta, valor);
+            _impl.EstablecerBoolean(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        protected internal void EstablecerChar(int indice, char valor)
+        protected void EstablecerBoolean(string ruta, bool valor)
         {
-            _od.EstablecerChar(indice, valor);
+            if (helper.ComprobarRuta(ref ruta))
+                helper.EstablecerBoolean(this, ruta, valor);
+            else
+                _impl.EstablecerBoolean(Tipo.ObtenerPropiedad(ruta), valor);
         }
 
-        protected internal void EstablecerChar(IPropiedad propiedad, char valor)
+        protected void EstablecerByte(IPropiedad propiedad, byte valor)
         {
-            _od.EstablecerChar(propiedad, valor);
+            _impl.EstablecerByte(propiedad, valor);
         }
 
-        protected internal void EstablecerChar(string ruta, char valor)
+        protected void EstablecerByte(int indice, byte valor)
         {
-            _od.EstablecerChar(ruta, valor);
+            _impl.EstablecerByte(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        protected internal void EstablecerDateTime(int indice, DateTime valor)
+        protected void EstablecerByte(string ruta, byte valor)
         {
-            _od.EstablecerDateTime(indice, valor);
-        }
+            if (helper.ComprobarRuta(ref ruta))
+                helper.EstablecerByte(this, ruta, valor);
+            else
+                _impl.EstablecerByte(Tipo.ObtenerPropiedad(ruta), valor);
+		}
 
-        protected internal void EstablecerDateTime(IPropiedad propiedad, DateTime valor)
+        protected void EstablecerChar(IPropiedad propiedad, char valor)
         {
-            _od.EstablecerDateTime(propiedad, valor);
+            _impl.EstablecerChar(propiedad, valor);
         }
 
-        protected internal void EstablecerDateTime(string ruta, DateTime valor)
+        protected void EstablecerChar(int indice, char valor)
         {
-            _od.EstablecerDateTime(ruta, valor);
+            _impl.EstablecerChar(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        protected internal void EstablecerDecimal(int indice, decimal valor)
+        protected void EstablecerChar(string ruta, char valor)
         {
-            _od.EstablecerDecimal(indice, valor);
+            if (helper.ComprobarRuta(ref ruta))
+                helper.EstablecerChar(this, ruta, valor);
+            else
+                _impl.EstablecerChar(Tipo.ObtenerPropiedad(ruta), valor);            
         }
 
-        protected internal void EstablecerDecimal(IPropiedad propiedad, decimal valor)
+        protected void EstablecerDateTime(IPropiedad propiedad, DateTime valor)
         {
-            _od.EstablecerDecimal(propiedad, valor);
+            _impl.EstablecerDateTime(propiedad, valor);
         }
 
-        protected internal void EstablecerDecimal(string ruta, decimal valor)
+        protected void EstablecerDateTime(int indice, DateTime valor)
         {
-            _od.EstablecerDecimal(ruta, valor);
+            _impl.EstablecerDateTime(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        protected internal void EstablecerDouble(int indice, double valor)
+        protected void EstablecerDateTime(string ruta, DateTime valor)
         {
-            _od.EstablecerDouble(indice, valor);
+            if (helper.ComprobarRuta(ref ruta))
+                helper.EstablecerDateTime(this, ruta, valor);
+            else
+                _impl.EstablecerDateTime(Tipo.ObtenerPropiedad(ruta), valor);
         }
 
-        protected internal void EstablecerDouble(IPropiedad propiedad, double valor)
+        protected void EstablecerDecimal(IPropiedad propiedad, decimal valor)
         {
-            _od.EstablecerDouble(propiedad, valor);
+            _impl.EstablecerDecimal(propiedad, valor);
         }
 
-        protected internal void EstablecerDouble(string ruta, double valor)
+        protected void EstablecerDecimal(int indice, decimal valor)
         {
-            _od.EstablecerDouble(ruta, valor);
+            _impl.EstablecerDecimal(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        protected internal void EstablecerFloat(int indice, float valor)
+        protected void EstablecerDecimal(string ruta, decimal valor)
         {
-            _od.EstablecerFloat(indice, valor);
+            if (helper.ComprobarRuta(ref ruta))
+                helper.EstablecerDecimal(this, ruta, valor);
+            else
+                _impl.EstablecerDecimal(Tipo.ObtenerPropiedad(ruta), valor);
         }
 
-        protected internal void EstablecerFloat(IPropiedad propiedad, float valor)
+        protected void EstablecerDouble(IPropiedad propiedad, double valor)
         {
-            _od.EstablecerFloat(propiedad, valor);
+            _impl.EstablecerDouble(propiedad, valor);
         }
 
-        protected internal void EstablecerFloat(string ruta, float valor)
+        protected void EstablecerDouble(int indice, double valor)
         {
-            _od.EstablecerFloat(ruta, valor);
+            _impl.EstablecerDouble(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        protected internal void EstablecerInteger(int indice, int valor)
+        protected void EstablecerDouble(string ruta, double valor)
         {
-            _od.EstablecerInteger(indice, valor);
+            if (helper.ComprobarRuta(ref ruta))
+                helper.EstablecerDouble(this, ruta, valor);
+            else
+                _impl.EstablecerDouble(Tipo.ObtenerPropiedad(ruta), valor);
         }
 
-        protected internal void EstablecerInteger(IPropiedad propiedad, int valor)
+        protected void EstablecerFloat(IPropiedad propiedad, float valor)
         {
-            _od.EstablecerInteger(propiedad, valor);
+            _impl.EstablecerFloat(propiedad, valor);
         }
 
-        protected internal void EstablecerInteger(string ruta, int valor)
+        protected void EstablecerFloat(int indice, float valor)
         {
-            _od.EstablecerInteger(ruta, valor);
+            _impl.EstablecerFloat(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        protected internal void EstablecerLong(int indice, long valor)
+        protected void EstablecerFloat(string ruta, float valor)
         {
-            _od.EstablecerLong(indice, valor);
+            if (helper.ComprobarRuta(ref ruta))
+                helper.EstablecerFloat(this, ruta, valor);
+            else
+                _impl.EstablecerFloat(Tipo.ObtenerPropiedad(ruta), valor); 
         }
 
-        protected internal void EstablecerLong(IPropiedad propiedad, long valor)
+        protected void EstablecerInteger(IPropiedad propiedad, int valor)
         {
-            _od.EstablecerLong(propiedad, valor);
+            _impl.EstablecerInteger(propiedad, valor);
         }
 
-        protected internal void EstablecerLong(string ruta, long valor)
+        protected void EstablecerInteger(int indice, int valor)
         {
-            _od.EstablecerLong(ruta, valor);
+            _impl.EstablecerInteger(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        protected internal void EstablecerObject(int indice, object valor)
+        protected void EstablecerInteger(string ruta, int valor)
+        {
+            if (helper.ComprobarRuta(ref ruta))
+                helper.EstablecerInteger(this, ruta, valor);
+            else
+                _impl.EstablecerInteger(Tipo.ObtenerPropiedad(ruta), valor); 
+        }
+        
+        protected void EstablecerLong(IPropiedad propiedad, long valor)
         {
-            _od.EstablecerObject(indice, valor);
+            _impl.EstablecerLong(propiedad, valor);
         }
 
-        protected internal void EstablecerObject(IPropiedad propiedad, object valor)
+        protected void EstablecerLong(int indice, long valor)
         {
-            _od.EstablecerObject(propiedad, valor);
+            _impl.EstablecerLong(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        protected internal void EstablecerObject(string ruta, object valor)
+        protected void EstablecerLong(string ruta, long valor)
         {
-            _od.EstablecerObject(ruta, valor);
+            if (helper.ComprobarRuta(ref ruta))
+                helper.EstablecerLong(this, ruta, valor);
+            else
+                _impl.EstablecerLong(Tipo.ObtenerPropiedad(ruta), valor); 
         }
 
-        protected internal void EstablecerObjetoDatos(int indice, IObjetoDatos valor)
+        protected void EstablecerObject(IPropiedad propiedad, object valor)
         {
-            _od.EstablecerObjetoDatos(indice, valor);
+            _impl.EstablecerObject(propiedad, valor);
         }
 
-        protected internal void EstablecerObjetoDatos(IPropiedad propiedad, IObjetoDatos valor)
+        protected void EstablecerObject(int indice, object valor)
         {
-            _od.EstablecerObjetoDatos(propiedad, valor);
+            _impl.EstablecerObject(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        protected internal void EstablecerObjetoDatos(string ruta, IObjetoDatos valor)
+        protected void EstablecerObject(string ruta, object valor)
         {
-            _od.EstablecerObjetoDatos(ruta, valor);
+            if (helper.ComprobarRuta(ref ruta))
+                helper.EstablecerObject(this, ruta, valor);
+            else
+                _impl.EstablecerObject(Tipo.ObtenerPropiedad(ruta), valor); 
         }
 
-        protected internal void EstablecerSByte(int indice, sbyte valor)
+        protected void EstablecerObjetoDatos(IPropiedad propiedad, IObjetoDatos valor)
         {
-            _od.EstablecerSByte(indice, valor);
+            _impl.EstablecerObjetoDatos(propiedad, valor);
         }
 
-        protected internal void EstablecerSByte(IPropiedad propiedad, sbyte valor)
+        protected void EstablecerObjetoDatos(int indice, IObjetoDatos valor)
         {
-            _od.EstablecerSByte(propiedad, valor);
+            _impl.EstablecerObjetoDatos(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        protected internal void EstablecerSByte(string ruta, sbyte valor)
+        protected void EstablecerObjetoDatos(string ruta, IObjetoDatos valor)
         {
-            _od.EstablecerSByte(ruta, valor);
+            if (helper.ComprobarRuta(ref ruta))
+                helper.EstablecerObjetoDatos(this, ruta, valor);
+            else
+                _impl.EstablecerObjetoDatos(Tipo.ObtenerPropiedad(ruta), valor); 
         }
 
-        protected internal void EstablecerShort(int indice, short valor)
+        protected void EstablecerSByte(IPropiedad propiedad, sbyte valor)
         {
-            _od.EstablecerShort(indice, valor);
+            _impl.EstablecerSByte(propiedad, valor);
         }
 
-        protected internal void EstablecerShort(IPropiedad propiedad, short valor)
+        protected void EstablecerSByte(int indice, sbyte valor)
         {
-            _od.EstablecerShort(propiedad, valor);
+            _impl.EstablecerSByte(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        protected internal void EstablecerShort(string ruta, short valor)
+        protected void EstablecerSByte(string ruta, sbyte valor)
         {
-            _od.EstablecerShort(ruta, valor);
+            if (helper.ComprobarRuta(ref ruta))
+                helper.EstablecerSByte(this, ruta, valor);
+            else
+                _impl.EstablecerSByte(Tipo.ObtenerPropiedad(ruta), valor); 
         }
 
-        protected internal void EstablecerString(int indice, string valor)
+        protected void EstablecerShort(IPropiedad propiedad, short valor)
         {
-            _od.EstablecerString(indice, valor);
+            _impl.EstablecerShort(propiedad, valor);
         }
 
-        protected internal void EstablecerString(IPropiedad propiedad, string valor)
+        protected void EstablecerShort(int indice, short valor)
         {
-            _od.EstablecerString(propiedad, valor);
+            _impl.EstablecerShort(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        protected internal void EstablecerString(string ruta, string valor)
+        protected void EstablecerShort(string ruta, short valor)
         {
-            _od.EstablecerString(ruta, valor);
+            if (helper.ComprobarRuta(ref ruta))
+                helper.EstablecerShort(this, ruta, valor);
+            else
+                _impl.EstablecerShort(Tipo.ObtenerPropiedad(ruta), valor); 
         }
 
-        protected internal void EstablecerUInteger(int indice, uint valor)
+        protected void EstablecerString(IPropiedad propiedad, string valor)
         {
-            _od.EstablecerUInteger(indice, valor);
+            _impl.EstablecerString(propiedad, valor);
         }
 
-        protected internal void EstablecerUInteger(IPropiedad propiedad, uint valor)
+        protected void EstablecerString(int indice, string valor)
         {
-            _od.EstablecerUInteger(propiedad, valor);
+            _impl.EstablecerString(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        protected internal void EstablecerUInteger(string ruta, uint valor)
+        protected void EstablecerString(string ruta, string valor)
         {
-            _od.EstablecerUInteger(ruta, valor);
+            if (helper.ComprobarRuta(ref ruta))
+                helper.EstablecerString(this, ruta, valor);
+            else
+                _impl.EstablecerString(Tipo.ObtenerPropiedad(ruta), valor); 
         }
 
-        protected internal void EstablecerULong(int indice, ulong valor)
+        protected void EstablecerUInteger(IPropiedad propiedad, uint valor)
         {
-            _od.EstablecerULong(indice, valor);
+            _impl.EstablecerUInteger(propiedad, valor);
         }
 
-        protected internal void EstablecerULong(IPropiedad propiedad, ulong valor)
+        protected void EstablecerUInteger(int indice, uint valor)
         {
-            _od.EstablecerULong(propiedad, valor);
+            _impl.EstablecerUInteger(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        protected internal void EstablecerULong(string ruta, ulong valor)
+        protected void EstablecerUInteger(string ruta, uint valor)
         {
-            _od.EstablecerULong(ruta, valor);
+            if (helper.ComprobarRuta(ref ruta))
+                helper.EstablecerUInteger(this, ruta, valor);
+            else
+                _impl.EstablecerUInteger(Tipo.ObtenerPropiedad(ruta), valor); 
         }
 
-        protected internal void EstablecerUShort(int indice, ushort valor)
+        protected void EstablecerULong(IPropiedad propiedad, ulong valor)
         {
-            _od.EstablecerUShort(indice, valor);
+            _impl.EstablecerULong(propiedad, valor);
         }
 
-        protected internal void EstablecerUShort(IPropiedad propiedad, ushort valor)
+        protected void EstablecerULong(int indice, ulong valor)
         {
-            _od.EstablecerUShort(propiedad, valor);
+            _impl.EstablecerULong(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        protected internal void EstablecerUShort(string ruta, ushort valor)
+        protected void EstablecerULong(string ruta, ulong valor)
         {
-            _od.EstablecerUShort(ruta, valor);
+            if (helper.ComprobarRuta(ref ruta))
+                helper.EstablecerULong(this, ruta, valor);
+            else
+                _impl.EstablecerULong(Tipo.ObtenerPropiedad(ruta), valor); 
         }
 
-        protected internal bool Establecido(int indice)
+        protected void EstablecerUShort(IPropiedad propiedad, ushort valor)
         {
-            return _od.Establecido(indice);
+            _impl.EstablecerUShort(propiedad, valor);
         }
 
-        protected internal bool Establecido(IPropiedad propiedad)
+        protected void EstablecerUShort(int indice, ushort valor)
         {
-            return _od.Establecido(propiedad);
+            _impl.EstablecerUShort(Tipo.ObtenerPropiedad(indice), valor);
         }
 
-        protected internal bool Establecido(string ruta)
+        protected void EstablecerUShort(string ruta, ushort valor)
         {
-            return _od.Establecido(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                helper.EstablecerUShort(this, ruta, valor);
+            else
+                _impl.EstablecerUShort(Tipo[ruta], valor); 
         }
 
-        protected internal object Obtener(int indice)
+        protected object Obtener(IPropiedad propiedad)
         {
-            return _od.Obtener(indice);
+            return _impl.Obtener(propiedad);
         }
 
-        protected internal object Obtener(IPropiedad propiedad)
+        protected object Obtener(int indice)
         {
-            return _od.Obtener(propiedad);
+            return _impl.Obtener(Tipo[indice]);
         }
 
-        protected internal object Obtener(string ruta)
+        protected object Obtener(string ruta)
         {
-            return _od.Obtener(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.Obtener(this, ruta);
+            else
+                return _impl.Obtener(Tipo[ruta]); 
         }
 
-        protected internal bool ObtenerBoolean(int indice)
+        protected bool ObtenerBoolean(IPropiedad propiedad)
         {
-            return _od.ObtenerBoolean(indice);
+            return _impl.ObtenerBoolean(propiedad);
         }
 
-        protected internal bool ObtenerBoolean(IPropiedad propiedad)
+        protected bool ObtenerBoolean(int indice)
         {
-            return _od.ObtenerBoolean(propiedad);
+            return _impl.ObtenerBoolean(Tipo[indice]); ;
         }
 
-        protected internal bool ObtenerBoolean(string ruta)
+        protected bool ObtenerBoolean(string ruta)
         {
-            return _od.ObtenerBoolean(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.ObtenerBoolean(this, ruta);
+            else
+                return _impl.ObtenerBoolean(Tipo[ruta]); 
         }
 
-        protected internal byte ObtenerByte(int indice)
+        protected byte ObtenerByte(IPropiedad propiedad)
         {
-            return _od.ObtenerByte(indice);
+            return _impl.ObtenerByte(propiedad); 
         }
 
-        protected internal byte ObtenerByte(IPropiedad propiedad)
+        protected byte ObtenerByte(int indice)
         {
-            return _od.ObtenerByte(propiedad);
+            return _impl.ObtenerByte(Tipo[indice]); 
         }
 
-        protected internal byte ObtenerByte(string ruta)
+        protected byte ObtenerByte(string ruta)
         {
-            return _od.ObtenerByte(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.ObtenerByte(this, ruta);
+            else
+                return _impl.ObtenerByte(Tipo[ruta]); 
         }
 
-        protected internal char ObtenerChar(int indice)
+        protected char ObtenerChar(IPropiedad propiedad)
         {
-            return _od.ObtenerChar(indice);
+            return _impl.ObtenerChar(propiedad);
         }
 
-        protected internal char ObtenerChar(IPropiedad propiedad)
+        protected char ObtenerChar(int indice)
         {
-            return _od.ObtenerChar(propiedad);
+            return _impl.ObtenerChar(Tipo[indice]);
         }
 
-        protected internal char ObtenerChar(string ruta)
+        protected char ObtenerChar(string ruta)
         {
-            return _od.ObtenerChar(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.ObtenerChar(this, ruta);
+            else
+                return _impl.ObtenerChar(Tipo[ruta]); 
         }
 
-        protected internal IColeccion ObtenerColeccion(int indice)
+        protected IColeccion ObtenerColeccion(IPropiedad propiedad)
         {
-            return _od.ObtenerColeccion(indice);
+            return _impl.ObtenerColeccion(propiedad);
         }
 
-        protected internal IColeccion ObtenerColeccion(IPropiedad propiedad)
+        protected IColeccion ObtenerColeccion(int indice)
         {
-            return _od.ObtenerColeccion(propiedad);
+            return _impl.ObtenerColeccion(Tipo[indice]);
         }
 
-        protected internal IColeccion ObtenerColeccion(string ruta)
+        protected IColeccion ObtenerColeccion(string ruta)
         {
-            return _od.ObtenerColeccion(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.ObtenerColeccion(this, ruta);
+            else
+                return _impl.ObtenerColeccion(Tipo[ruta]); 
         }
 
-        protected internal DateTime ObtenerDateTime(int indice)
+        protected DateTime ObtenerDateTime(IPropiedad propiedad)
         {
-            return _od.ObtenerDateTime(indice);
+            return _impl.ObtenerDateTime(propiedad);
         }
 
-        protected internal DateTime ObtenerDateTime(IPropiedad propiedad)
+        protected DateTime ObtenerDateTime(int indice)
         {
-            return _od.ObtenerDateTime(propiedad);
+            return _impl.ObtenerDateTime(Tipo[indice]);
         }
 
-        protected internal DateTime ObtenerDateTime(string ruta)
+        protected DateTime ObtenerDateTime(string ruta)
         {
-            return _od.ObtenerDateTime(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.ObtenerDateTime(this, ruta);
+            else
+                return _impl.ObtenerDateTime(Tipo[ruta]); 
         }
 
-        protected internal decimal ObtenerDecimal(int indice)
+        protected decimal ObtenerDecimal(IPropiedad propiedad)
         {
-            return _od.ObtenerDecimal(indice);
+            return _impl.ObtenerDecimal(propiedad);
         }
 
-        protected internal decimal ObtenerDecimal(IPropiedad propiedad)
+        protected decimal ObtenerDecimal(int indice)
         {
-            return _od.ObtenerDecimal(propiedad);
+            return _impl.ObtenerDecimal(Tipo[indice]);
         }
 
-        protected internal decimal ObtenerDecimal(string ruta)
+        protected decimal ObtenerDecimal(string ruta)
         {
-            return _od.ObtenerDecimal(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.ObtenerDecimal(this, ruta);
+            else
+                return _impl.ObtenerDecimal(Tipo[ruta]); 
         }
 
-        protected internal double ObtenerDouble(int indice)
+        protected double ObtenerDouble(IPropiedad propiedad)
         {
-            return _od.ObtenerDouble(indice);
+            return _impl.ObtenerDouble(propiedad);
         }
 
-        protected internal double ObtenerDouble(IPropiedad propiedad)
+        protected double ObtenerDouble(int indice)
         {
-            return _od.ObtenerDouble(propiedad);
+            return _impl.ObtenerDouble(Tipo[indice]);
         }
 
-        protected internal double ObtenerDouble(string ruta)
+        protected double ObtenerDouble(string ruta)
         {
-            return _od.ObtenerDouble(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.ObtenerDouble(this, ruta);
+            else
+                return _impl.ObtenerDouble(Tipo[ruta]); 
         }
 
-        protected internal float ObtenerFloat(int indice)
+        protected float ObtenerFloat(IPropiedad propiedad)
         {
-            return _od.ObtenerFloat(indice);
+            return _impl.ObtenerFloat(propiedad);
         }
 
-        protected internal float ObtenerFloat(IPropiedad propiedad)
+        protected float ObtenerFloat(int indice)
         {
-            return _od.ObtenerFloat(propiedad);
+            return _impl.ObtenerFloat(Tipo[indice]);
         }
 
-        protected internal float ObtenerFloat(string ruta)
+        protected float ObtenerFloat(string ruta)
         {
-            return _od.ObtenerFloat(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.ObtenerFloat(this, ruta);
+            else
+                return _impl.ObtenerFloat(Tipo[ruta]); 
         }
 
-        protected internal int ObtenerInteger(int indice)
+        protected int ObtenerInteger(IPropiedad propiedad)
         {
-            return _od.ObtenerInteger(indice);
+            return _impl.ObtenerInteger(propiedad);
         }
 
-        protected internal int ObtenerInteger(IPropiedad propiedad)
+        protected int ObtenerInteger(int indice)
         {
-            return _od.ObtenerInteger(propiedad);
+            return _impl.ObtenerInteger(Tipo[indice]);
         }
 
-        protected internal int ObtenerInteger(string ruta)
+        protected int ObtenerInteger(string ruta)
         {
-            return _od.ObtenerInteger(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.ObtenerInteger(this, ruta);
+            else
+                return _impl.ObtenerInteger(Tipo[ruta]); 
         }
 
-        protected internal long ObtenerLong(int indice)
+        protected long ObtenerLong(IPropiedad propiedad)
         {
-            return _od.ObtenerLong(indice);
+            return _impl.ObtenerLong(propiedad);
         }
 
-        protected internal long ObtenerLong(IPropiedad propiedad)
+        protected long ObtenerLong(int indice)
         {
-            return _od.ObtenerLong(propiedad);
+            return _impl.ObtenerLong(Tipo[indice]);
         }
 
-        protected internal long ObtenerLong(string ruta)
+        protected long ObtenerLong(string ruta)
         {
-            return _od.ObtenerLong(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.ObtenerLong(this, ruta);
+            else
+                return _impl.ObtenerLong(Tipo[ruta]); 
         }
 
-        protected internal object ObtenerObject(int indice)
+        protected object ObtenerObject(IPropiedad propiedad)
         {
-            return _od.ObtenerObject(indice);
+            return _impl.ObtenerObject(propiedad);
         }
 
-        protected internal object ObtenerObject(IPropiedad propiedad)
+        protected object ObtenerObject(int indice)
         {
-            return _od.ObtenerObject(propiedad);
+            return _impl.ObtenerObject(Tipo[indice]);
         }
 
-        protected internal object ObtenerObject(string ruta)
+        protected object ObtenerObject(string ruta)
         {
-            return _od.ObtenerObject(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.ObtenerObject(this, ruta);
+            else
+                return _impl.ObtenerObject(Tipo[ruta]); 
         }
 
-        protected internal IObjetoDatos ObtenerObjetoDatos(int indice)
+        protected IObjetoDatos ObtenerObjetoDatos(IPropiedad propiedad)
         {
-            return _od.ObtenerObjetoDatos(indice);
+            return _impl.ObtenerObjetoDatos(propiedad);
         }
 
-        protected internal IObjetoDatos ObtenerObjetoDatos(IPropiedad propiedad)
+        protected IObjetoDatos ObtenerObjetoDatos(int indice)
         {
-            return _od.ObtenerObjetoDatos(propiedad);
+            return _impl.ObtenerObjetoDatos(Tipo[indice]);
         }
 
-        protected internal IObjetoDatos ObtenerObjetoDatos(string ruta)
+        protected IObjetoDatos ObtenerObjetoDatos(string ruta)
         {
-            return _od.ObtenerObjetoDatos(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.ObtenerObjetoDatos(this, ruta);
+            else
+                return _impl.ObtenerObjetoDatos(Tipo[ruta]); 
         }
 
-        protected internal sbyte ObtenerSByte(int indice)
+        protected sbyte ObtenerSByte(IPropiedad propiedad)
         {
-            return _od.ObtenerSByte(indice);
+            return _impl.ObtenerSByte(propiedad);
         }
 
-        protected internal sbyte ObtenerSByte(IPropiedad propiedad)
+        protected sbyte ObtenerSByte(int indice)
         {
-            return _od.ObtenerSByte(propiedad);
+            return _impl.ObtenerSByte(Tipo[indice]);
         }
 
-        protected internal sbyte ObtenerSByte(string ruta)
+        protected sbyte ObtenerSByte(string ruta)
         {
-            return _od.ObtenerSByte(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.ObtenerSByte(this, ruta);
+            else
+                return _impl.ObtenerSByte(Tipo[ruta]); 
         }
 
-        protected internal short ObtenerShort(int indice)
+        protected short ObtenerShort(IPropiedad propiedad)
         {
-            return _od.ObtenerShort(indice);
+            return _impl.ObtenerShort(propiedad);
         }
 
-        protected internal short ObtenerShort(IPropiedad propiedad)
+        protected short ObtenerShort(int indice)
         {
-            return _od.ObtenerShort(propiedad);
+            return _impl.ObtenerShort(Tipo[indice]);
         }
 
-        protected internal short ObtenerShort(string ruta)
+        protected short ObtenerShort(string ruta)
         {
-            return _od.ObtenerShort(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.ObtenerShort(this, ruta);
+            else
+                return _impl.ObtenerShort(Tipo[ruta]); 
         }
 
-        protected internal string ObtenerString(int indice)
+        protected string ObtenerString(IPropiedad propiedad)
         {
-            return _od.ObtenerString(indice);
+            return _impl.ObtenerString(propiedad);
         }
 
-        protected internal string ObtenerString(IPropiedad propiedad)
+        protected string ObtenerString(int indice)
         {
-            return _od.ObtenerString(propiedad);
+            return _impl.ObtenerString(Tipo[indice]);
         }
 
-        protected internal string ObtenerString(string ruta)
+        protected string ObtenerString(string ruta)
         {
-            return _od.ObtenerString(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.ObtenerString(this, ruta);
+            else
+                return _impl.ObtenerString(Tipo[ruta]); 
         }
 
-        protected internal uint ObtenerUInteger(int indice)
+        protected uint ObtenerUInteger(IPropiedad propiedad)
         {
-            return _od.ObtenerUInteger(indice);
+            return _impl.ObtenerUInteger(propiedad);
         }
 
-        protected internal uint ObtenerUInteger(IPropiedad propiedad)
+        protected uint ObtenerUInteger(int indice)
         {
-            return _od.ObtenerUInteger(propiedad);
+            return _impl.ObtenerUInteger(Tipo[indice]);
         }
 
-        protected internal uint ObtenerUInteger(string ruta)
+        protected uint ObtenerUInteger(string ruta)
         {
-            return _od.ObtenerUInteger(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.ObtenerUInteger(this, ruta);
+            else
+                return _impl.ObtenerUInteger(Tipo[ruta]); 
         }
 
-        protected internal ulong ObtenerULong(int indice)
+        protected ulong ObtenerULong(IPropiedad propiedad)
         {
-            return _od.ObtenerULong(indice);
+            return _impl.ObtenerULong(propiedad);
         }
 
-        protected internal ulong ObtenerULong(IPropiedad propiedad)
+        protected ulong ObtenerULong(int indice)
         {
-            return _od.ObtenerULong(propiedad);
+            return _impl.ObtenerULong(Tipo[indice]);
         }
 
-        protected internal ulong ObtenerULong(string ruta)
+        protected ulong ObtenerULong(string ruta)
         {
-            return _od.ObtenerULong(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.ObtenerULong(this, ruta);
+            else
+                return _impl.ObtenerULong(Tipo[ruta]); 
         }
 
-        protected internal ushort ObtenerUShort(int indice)
+        protected ushort ObtenerUShort(IPropiedad propiedad)
         {
-            return _od.ObtenerUShort(indice);
+            return _impl.ObtenerUShort(propiedad);
         }
 
-        protected internal ushort ObtenerUShort(IPropiedad propiedad)
+        protected ushort ObtenerUShort(int indice)
         {
-            return _od.ObtenerUShort(propiedad);
+            return _impl.ObtenerUShort(Tipo[indice]);
         }
 
-        protected internal ushort ObtenerUShort(string ruta)
+        protected ushort ObtenerUShort(string ruta)
         {
-            return _od.ObtenerUShort(ruta);
+            if (helper.ComprobarRuta(ref ruta))
+                return helper.ObtenerUShort(this, ruta);
+            else
+                return _impl.ObtenerUShort(Tipo[ruta]); 
         }
 
-        protected internal void RemoverObjetoDatos(int indice, IObjetoDatos item)
+        protected void RemoverObjetoDatos(IPropiedad propiedad, IObjetoDatos item)
         {
-            _od.RemoverObjetoDatos(indice, item);
+            _impl.RemoverObjetoDatos(propiedad, item);
         }
 
-        protected internal void RemoverObjetoDatos(IPropiedad propiedad, IObjetoDatos item)
+        protected void RemoverObjetoDatos(int indice, IObjetoDatos item)
         {
-            _od.RemoverObjetoDatos(propiedad, item);
+            _impl.RemoverObjetoDatos(Tipo[indice], item);
         }
 
-        protected internal void RemoverObjetoDatos(string nombre, IObjetoDatos item)
+        protected void RemoverObjetoDatos(string ruta, IObjetoDatos item)
         {
-            _od.RemoverObjetoDatos(nombre, item);
+            if (helper.ComprobarRuta(ref ruta))
+                helper.RemoverObjetoDatos(this, ruta, item);
+            else
+                _impl.RemoverObjetoDatos(Tipo[ruta], item);
         }
 
 
@@ -639,7 +773,7 @@ namespace Binapsis.Plataforma.Estructura.Impl
         {
             get
             {
-                return _od.Propietario;
+                return Propietario;
             }
         }
 
@@ -647,615 +781,615 @@ namespace Binapsis.Plataforma.Estructura.Impl
         {
             get
             {
-                return _od.Tipo;
+                return Tipo;
             }
-        }
-
-        IObjetoDatos IObjetoDatos.CrearObjetoDatos(int indice)
-        {
-            return _od.CrearObjetoDatos(indice);
-        }
-
-        IObjetoDatos IObjetoDatos.CrearObjetoDatos(IPropiedad propiedad)
-        {
-            return _od.CrearObjetoDatos(propiedad);
         }
 
         IObjetoDatos IObjetoDatos.CrearObjetoDatos(string ruta)
         {
-            return _od.CrearObjetoDatos(ruta);
+            return CrearObjetoDatos(ruta);
+        }
+
+        IObjetoDatos IObjetoDatos.CrearObjetoDatos(IPropiedad propiedad)
+        {
+            return CrearObjetoDatos(propiedad);
+        }
+
+        IObjetoDatos IObjetoDatos.CrearObjetoDatos(int indice)
+        {
+            return CrearObjetoDatos(indice);
         }
 
         void IObjetoDatos.Eliminar()
         {
-            _od.Eliminar();
-        }
-
-        void IObjetoDatos.Establecer(int indice, object valor)
-        {
-            _od.Establecer(indice, valor);
-        }
-
-        void IObjetoDatos.Establecer(IPropiedad propiedad, object valor)
-        {
-            _od.Establecer(propiedad, valor);
+            Eliminar();
         }
 
         void IObjetoDatos.Establecer(string ruta, object valor)
         {
-            _od.Establecer(ruta, valor);
+            Establecer(ruta, valor);
         }
 
-        void IObjetoDatos.EstablecerBoolean(int indice, bool valor)
+        void IObjetoDatos.Establecer(IPropiedad propiedad, object valor)
         {
-            _od.EstablecerBoolean(indice, valor);
+            Establecer(propiedad, valor);
         }
 
-        void IObjetoDatos.EstablecerBoolean(IPropiedad propiedad, bool valor)
+        void IObjetoDatos.Establecer(int indice, object valor)
         {
-            _od.EstablecerBoolean(propiedad, valor);
+            Establecer(indice, valor);
         }
 
         void IObjetoDatos.EstablecerBoolean(string ruta, bool valor)
         {
-            _od.EstablecerBoolean(ruta, valor);
+            EstablecerBoolean(ruta, valor);
         }
 
-        void IObjetoDatos.EstablecerByte(int indice, byte valor)
+        void IObjetoDatos.EstablecerBoolean(IPropiedad propiedad, bool valor)
         {
-            _od.EstablecerByte(indice, valor);
+            EstablecerBoolean(propiedad, valor);
         }
 
-        void IObjetoDatos.EstablecerByte(IPropiedad propiedad, byte valor)
+        void IObjetoDatos.EstablecerBoolean(int indice, bool valor)
         {
-            _od.EstablecerByte(propiedad, valor);
+            EstablecerBoolean(indice, valor);
         }
 
         void IObjetoDatos.EstablecerByte(string ruta, byte valor)
         {
-            _od.EstablecerByte(ruta, valor);
+            EstablecerByte(ruta, valor);
         }
 
-        void IObjetoDatos.EstablecerChar(int indice, char valor)
+        void IObjetoDatos.EstablecerByte(IPropiedad propiedad, byte valor)
         {
-            _od.EstablecerChar(indice, valor);
+            EstablecerByte(propiedad, valor);
         }
 
-        void IObjetoDatos.EstablecerChar(IPropiedad propiedad, char valor)
+        void IObjetoDatos.EstablecerByte(int indice, byte valor)
         {
-            _od.EstablecerChar(propiedad, valor);
+            EstablecerByte(indice, valor);
         }
 
         void IObjetoDatos.EstablecerChar(string ruta, char valor)
         {
-            _od.EstablecerChar(ruta, valor);
+            EstablecerChar(ruta, valor);
         }
 
-        void IObjetoDatos.EstablecerDateTime(int indice, DateTime valor)
+        void IObjetoDatos.EstablecerChar(IPropiedad propiedad, char valor)
         {
-            _od.EstablecerDateTime(indice, valor);
+            EstablecerChar(propiedad, valor);
         }
 
-        void IObjetoDatos.EstablecerDateTime(IPropiedad propiedad, DateTime valor)
+        void IObjetoDatos.EstablecerChar(int indice, char valor)
         {
-            _od.EstablecerDateTime(propiedad, valor);
+            EstablecerChar(indice, valor);
         }
 
         void IObjetoDatos.EstablecerDateTime(string ruta, DateTime valor)
         {
-            _od.EstablecerDateTime(ruta, valor);
+            EstablecerDateTime(ruta, valor);
         }
 
-        void IObjetoDatos.EstablecerDecimal(int indice, decimal valor)
+        void IObjetoDatos.EstablecerDateTime(IPropiedad propiedad, DateTime valor)
         {
-            _od.EstablecerDecimal(indice, valor);
+            EstablecerDateTime(propiedad, valor);
         }
 
-        void IObjetoDatos.EstablecerDecimal(IPropiedad propiedad, decimal valor)
+        void IObjetoDatos.EstablecerDateTime(int indice, DateTime valor)
         {
-            _od.EstablecerDecimal(propiedad, valor);
+            EstablecerDateTime(indice, valor);
         }
 
         void IObjetoDatos.EstablecerDecimal(string ruta, decimal valor)
         {
-            _od.EstablecerDecimal(ruta, valor);
+            EstablecerDecimal(ruta, valor);
         }
 
-        void IObjetoDatos.EstablecerDouble(int indice, double valor)
+        void IObjetoDatos.EstablecerDecimal(IPropiedad propiedad, decimal valor)
         {
-            _od.EstablecerDouble(indice, valor);
+            EstablecerDecimal(propiedad, valor);
         }
 
-        void IObjetoDatos.EstablecerDouble(IPropiedad propiedad, double valor)
+        void IObjetoDatos.EstablecerDecimal(int indice, decimal valor)
         {
-            _od.EstablecerDouble(propiedad, valor);
+            EstablecerDecimal(indice, valor);
         }
 
         void IObjetoDatos.EstablecerDouble(string ruta, double valor)
         {
-            _od.EstablecerDouble(ruta, valor);
+            EstablecerDouble(ruta, valor);
         }
 
-        void IObjetoDatos.EstablecerFloat(int indice, float valor)
+        void IObjetoDatos.EstablecerDouble(IPropiedad propiedad, double valor)
         {
-            _od.EstablecerFloat(indice, valor);
+            EstablecerDouble(propiedad, valor);
         }
 
-        void IObjetoDatos.EstablecerFloat(IPropiedad propiedad, float valor)
+        void IObjetoDatos.EstablecerDouble(int indice, double valor)
         {
-            _od.EstablecerFloat(propiedad, valor);
+            EstablecerDouble(indice, valor);
         }
 
         void IObjetoDatos.EstablecerFloat(string ruta, float valor)
         {
-            _od.EstablecerFloat(ruta, valor);
+            EstablecerFloat(ruta, valor);
         }
 
-        void IObjetoDatos.EstablecerInteger(int indice, int valor)
+        void IObjetoDatos.EstablecerFloat(IPropiedad propiedad, float valor)
         {
-            _od.EstablecerInteger(indice, valor);
+            EstablecerFloat(propiedad, valor);
         }
 
-        void IObjetoDatos.EstablecerInteger(IPropiedad propiedad, int valor)
+        void IObjetoDatos.EstablecerFloat(int indice, float valor)
         {
-            _od.EstablecerInteger(propiedad, valor);
+            EstablecerFloat(indice, valor);
         }
 
         void IObjetoDatos.EstablecerInteger(string ruta, int valor)
         {
-            _od.EstablecerInteger(ruta, valor);
+            EstablecerInteger(ruta, valor);
         }
 
-        void IObjetoDatos.EstablecerLong(int indice, long valor)
+        void IObjetoDatos.EstablecerInteger(IPropiedad propiedad, int valor)
         {
-            _od.EstablecerLong(indice, valor);
+            EstablecerInteger(propiedad, valor);
         }
 
-        void IObjetoDatos.EstablecerLong(IPropiedad propiedad, long valor)
+        void IObjetoDatos.EstablecerInteger(int indice, int valor)
         {
-            _od.EstablecerLong(propiedad, valor);
+            EstablecerInteger(indice, valor);
         }
 
         void IObjetoDatos.EstablecerLong(string ruta, long valor)
         {
-            _od.EstablecerLong(ruta, valor);
+            EstablecerLong(ruta, valor);
         }
 
-        void IObjetoDatos.EstablecerObject(int indice, object valor)
+        void IObjetoDatos.EstablecerLong(IPropiedad propiedad, long valor)
         {
-            _od.EstablecerObject(indice, valor);
+            EstablecerLong(propiedad, valor);
         }
 
-        void IObjetoDatos.EstablecerObject(IPropiedad propiedad, object valor)
+        void IObjetoDatos.EstablecerLong(int indice, long valor)
         {
-            _od.EstablecerObject(propiedad, valor);
+            EstablecerLong(indice, valor);
         }
 
         void IObjetoDatos.EstablecerObject(string ruta, object valor)
         {
-            _od.EstablecerObject(ruta, valor);
+            EstablecerObject(ruta, valor);
         }
 
-        void IObjetoDatos.EstablecerObjetoDatos(int indice, IObjetoDatos valor)
+        void IObjetoDatos.EstablecerObject(IPropiedad propiedad, object valor)
         {
-            _od.EstablecerObjetoDatos(indice, valor);
+            EstablecerObject(propiedad, valor);
         }
 
-        void IObjetoDatos.EstablecerObjetoDatos(IPropiedad propiedad, IObjetoDatos valor)
+        void IObjetoDatos.EstablecerObject(int indice, object valor)
         {
-            _od.EstablecerObjetoDatos(propiedad, valor);
+            EstablecerObject(indice, valor);
         }
 
         void IObjetoDatos.EstablecerObjetoDatos(string ruta, IObjetoDatos valor)
         {
-            _od.EstablecerObjetoDatos(ruta, valor);
+            EstablecerObjetoDatos(ruta, valor);
         }
 
-        void IObjetoDatos.EstablecerSByte(int indice, sbyte valor)
+        void IObjetoDatos.EstablecerObjetoDatos(IPropiedad propiedad, IObjetoDatos valor)
         {
-            _od.EstablecerSByte(indice, valor);
+            EstablecerObjetoDatos(propiedad, valor);
         }
 
-        void IObjetoDatos.EstablecerSByte(IPropiedad propiedad, sbyte valor)
+        void IObjetoDatos.EstablecerObjetoDatos(int indice, IObjetoDatos valor)
         {
-            _od.EstablecerSByte(propiedad, valor);
+            EstablecerObjetoDatos(indice, valor);
         }
 
         void IObjetoDatos.EstablecerSByte(string ruta, sbyte valor)
         {
-            _od.EstablecerSByte(ruta, valor);
+            EstablecerSByte(ruta, valor);
         }
 
-        void IObjetoDatos.EstablecerShort(int indice, short valor)
+        void IObjetoDatos.EstablecerSByte(IPropiedad propiedad, sbyte valor)
         {
-            _od.EstablecerShort(indice, valor);
+            EstablecerSByte(propiedad, valor);
         }
 
-        void IObjetoDatos.EstablecerShort(IPropiedad propiedad, short valor)
+        void IObjetoDatos.EstablecerSByte(int indice, sbyte valor)
         {
-            _od.EstablecerShort(propiedad, valor);
+            EstablecerSByte(indice, valor);
         }
 
         void IObjetoDatos.EstablecerShort(string ruta, short valor)
         {
-            _od.EstablecerShort(ruta, valor);
+            EstablecerShort(ruta, valor);
         }
 
-        void IObjetoDatos.EstablecerString(int indice, string valor)
+        void IObjetoDatos.EstablecerShort(IPropiedad propiedad, short valor)
         {
-            _od.EstablecerString(indice, valor);
+            EstablecerShort(propiedad, valor);
         }
 
-        void IObjetoDatos.EstablecerString(IPropiedad propiedad, string valor)
+        void IObjetoDatos.EstablecerShort(int indice, short valor)
         {
-            _od.EstablecerString(propiedad, valor);
+            EstablecerShort(indice, valor);
         }
 
         void IObjetoDatos.EstablecerString(string ruta, string valor)
         {
-            _od.EstablecerString(ruta, valor);
+            EstablecerString(ruta, valor);
         }
 
-        void IObjetoDatos.EstablecerUInteger(int indice, uint valor)
+        void IObjetoDatos.EstablecerString(IPropiedad propiedad, string valor)
         {
-            _od.EstablecerUInteger(indice, valor);
+            EstablecerString(propiedad, valor);
         }
 
-        void IObjetoDatos.EstablecerUInteger(IPropiedad propiedad, uint valor)
+        void IObjetoDatos.EstablecerString(int indice, string valor)
         {
-            _od.EstablecerUInteger(propiedad, valor);
+            EstablecerString(indice, valor);
         }
 
         void IObjetoDatos.EstablecerUInteger(string ruta, uint valor)
         {
-            _od.EstablecerUInteger(ruta, valor);
+            EstablecerUInteger(ruta, valor);
         }
 
-        void IObjetoDatos.EstablecerULong(int indice, ulong valor)
+        void IObjetoDatos.EstablecerUInteger(IPropiedad propiedad, uint valor)
         {
-            _od.EstablecerULong(indice, valor);
+            EstablecerUInteger(propiedad, valor);
         }
 
-        void IObjetoDatos.EstablecerULong(IPropiedad propiedad, ulong valor)
+        void IObjetoDatos.EstablecerUInteger(int indice, uint valor)
         {
-            _od.EstablecerULong(propiedad, valor);
+            EstablecerUInteger(indice, valor);
         }
 
         void IObjetoDatos.EstablecerULong(string ruta, ulong valor)
         {
-            _od.EstablecerULong(ruta, valor);
+            EstablecerULong(ruta, valor);
         }
 
-        void IObjetoDatos.EstablecerUShort(int indice, ushort valor)
+        void IObjetoDatos.EstablecerULong(IPropiedad propiedad, ulong valor)
         {
-            _od.EstablecerUShort(indice, valor);
+            EstablecerULong(propiedad, valor);
         }
 
-        void IObjetoDatos.EstablecerUShort(IPropiedad propiedad, ushort valor)
+        void IObjetoDatos.EstablecerULong(int indice, ulong valor)
         {
-            _od.EstablecerUShort(propiedad, valor);
+            EstablecerULong(indice, valor);
         }
 
         void IObjetoDatos.EstablecerUShort(string ruta, ushort valor)
         {
-            _od.EstablecerUShort(ruta, valor);
+            EstablecerUShort(ruta, valor);
         }
 
-        bool IObjetoDatos.Establecido(int indice)
+        void IObjetoDatos.EstablecerUShort(IPropiedad propiedad, ushort valor)
         {
-            return _od.Establecido(indice);
+            EstablecerUShort(propiedad, valor);
         }
 
-        bool IObjetoDatos.Establecido(IPropiedad propiedad)
+        void IObjetoDatos.EstablecerUShort(int indice, ushort valor)
         {
-            return _od.Establecido(propiedad);
+            EstablecerUShort(indice, valor);
         }
 
         bool IObjetoDatos.Establecido(string ruta)
         {
-            return _od.Establecido(ruta);
+            return Establecido(ruta);
         }
 
-        object IObjetoDatos.Obtener(int indice)
+        bool IObjetoDatos.Establecido(IPropiedad propiedad)
         {
-            return _od.Obtener(indice);
+            return Establecido(propiedad);
         }
 
-        object IObjetoDatos.Obtener(IPropiedad propiedad)
+        bool IObjetoDatos.Establecido(int indice)
         {
-            return _od.Obtener(propiedad);
+            return Establecido(indice);
         }
 
         object IObjetoDatos.Obtener(string ruta)
         {
-            return _od.Obtener(ruta);
+            return Obtener(ruta);
         }
 
-        bool IObjetoDatos.ObtenerBoolean(int indice)
+        object IObjetoDatos.Obtener(IPropiedad propiedad)
         {
-            return _od.ObtenerBoolean(indice);
+            return Obtener(propiedad);
         }
 
-        bool IObjetoDatos.ObtenerBoolean(IPropiedad propiedad)
+        object IObjetoDatos.Obtener(int indice)
         {
-            return _od.ObtenerBoolean(propiedad);
+            return Obtener(indice);
         }
 
         bool IObjetoDatos.ObtenerBoolean(string ruta)
         {
-            return _od.ObtenerBoolean(ruta);
+            return ObtenerBoolean(ruta);
         }
 
-        byte IObjetoDatos.ObtenerByte(int indice)
+        bool IObjetoDatos.ObtenerBoolean(IPropiedad propiedad)
         {
-            return _od.ObtenerByte(indice);
+            return ObtenerBoolean(propiedad);
         }
 
-        byte IObjetoDatos.ObtenerByte(IPropiedad propiedad)
+        bool IObjetoDatos.ObtenerBoolean(int indice)
         {
-            return _od.ObtenerByte(propiedad);
+            return ObtenerBoolean(indice);
         }
 
         byte IObjetoDatos.ObtenerByte(string ruta)
         {
-            return _od.ObtenerByte(ruta);
+            return ObtenerByte(ruta);
         }
 
-        char IObjetoDatos.ObtenerChar(int indice)
+        byte IObjetoDatos.ObtenerByte(IPropiedad propiedad)
         {
-            return _od.ObtenerChar(indice);
+            return ObtenerByte(propiedad);
         }
 
-        char IObjetoDatos.ObtenerChar(IPropiedad propiedad)
+        byte IObjetoDatos.ObtenerByte(int indice)
         {
-            return _od.ObtenerChar(propiedad);
+            return ObtenerByte(indice);
         }
 
         char IObjetoDatos.ObtenerChar(string ruta)
         {
-            return _od.ObtenerChar(ruta);
+            return ObtenerChar(ruta);
         }
 
-        IColeccion IObjetoDatos.ObtenerColeccion(int indice)
+        char IObjetoDatos.ObtenerChar(IPropiedad propiedad)
         {
-            return _od.ObtenerColeccion(indice);
+            return ObtenerChar(propiedad);
         }
 
-        IColeccion IObjetoDatos.ObtenerColeccion(IPropiedad propiedad)
+        char IObjetoDatos.ObtenerChar(int indice)
         {
-            return _od.ObtenerColeccion(propiedad);
+            return ObtenerChar(indice);
         }
 
         IColeccion IObjetoDatos.ObtenerColeccion(string ruta)
         {
-            return _od.ObtenerColeccion(ruta);
+            return ObtenerColeccion(ruta);
         }
 
-        DateTime IObjetoDatos.ObtenerDateTime(int indice)
+        IColeccion IObjetoDatos.ObtenerColeccion(IPropiedad propiedad)
         {
-            return _od.ObtenerDateTime(indice);
+            return ObtenerColeccion(propiedad);
         }
 
-        DateTime IObjetoDatos.ObtenerDateTime(IPropiedad propiedad)
+        IColeccion IObjetoDatos.ObtenerColeccion(int indice)
         {
-            return _od.ObtenerDateTime(propiedad);
+            return ObtenerColeccion(indice);
         }
 
         DateTime IObjetoDatos.ObtenerDateTime(string ruta)
         {
-            return _od.ObtenerDateTime(ruta);
+            return ObtenerDateTime(ruta);
         }
 
-        decimal IObjetoDatos.ObtenerDecimal(int indice)
+        DateTime IObjetoDatos.ObtenerDateTime(IPropiedad propiedad)
         {
-            return _od.ObtenerDecimal(indice);
+            return ObtenerDateTime(propiedad);
         }
 
-        decimal IObjetoDatos.ObtenerDecimal(IPropiedad propiedad)
+        DateTime IObjetoDatos.ObtenerDateTime(int indice)
         {
-            return _od.ObtenerDecimal(propiedad);
+            return ObtenerDateTime(indice);
         }
 
         decimal IObjetoDatos.ObtenerDecimal(string ruta)
         {
-            return _od.ObtenerDecimal(ruta);
+            return ObtenerDecimal(ruta);
         }
 
-        double IObjetoDatos.ObtenerDouble(int indice)
+        decimal IObjetoDatos.ObtenerDecimal(IPropiedad propiedad)
         {
-            return _od.ObtenerDouble(indice);
+            return ObtenerDecimal(propiedad);
         }
 
-        double IObjetoDatos.ObtenerDouble(IPropiedad propiedad)
+        decimal IObjetoDatos.ObtenerDecimal(int indice)
         {
-            return _od.ObtenerDouble(propiedad);
+            return ObtenerDecimal(indice);
         }
 
         double IObjetoDatos.ObtenerDouble(string ruta)
         {
-            return _od.ObtenerDouble(ruta);
+            return ObtenerDouble(ruta);
         }
 
-        float IObjetoDatos.ObtenerFloat(int indice)
+        double IObjetoDatos.ObtenerDouble(IPropiedad propiedad)
         {
-            return _od.ObtenerFloat(indice);
+            return ObtenerDouble(propiedad);
         }
 
-        float IObjetoDatos.ObtenerFloat(IPropiedad propiedad)
+        double IObjetoDatos.ObtenerDouble(int indice)
         {
-            return _od.ObtenerFloat(propiedad);
+            return ObtenerDouble(indice);
         }
 
         float IObjetoDatos.ObtenerFloat(string ruta)
         {
-            return _od.ObtenerFloat(ruta);
+            return ObtenerFloat(ruta);
         }
 
-        int IObjetoDatos.ObtenerInteger(int indice)
+        float IObjetoDatos.ObtenerFloat(IPropiedad propiedad)
         {
-            return _od.ObtenerInteger(indice);
+            return ObtenerFloat(propiedad);
         }
 
-        int IObjetoDatos.ObtenerInteger(IPropiedad propiedad)
+        float IObjetoDatos.ObtenerFloat(int indice)
         {
-            return _od.ObtenerInteger(propiedad);
+            return ObtenerFloat(indice);
         }
 
         int IObjetoDatos.ObtenerInteger(string ruta)
         {
-            return _od.ObtenerInteger(ruta);
+            return ObtenerInteger(ruta);
         }
 
-        long IObjetoDatos.ObtenerLong(int indice)
+        int IObjetoDatos.ObtenerInteger(IPropiedad propiedad)
         {
-            return _od.ObtenerLong(indice);
+            return ObtenerInteger(propiedad);
         }
 
-        long IObjetoDatos.ObtenerLong(IPropiedad propiedad)
+        int IObjetoDatos.ObtenerInteger(int indice)
         {
-            return _od.ObtenerLong(propiedad);
+            return ObtenerInteger(indice);
         }
 
         long IObjetoDatos.ObtenerLong(string ruta)
         {
-            return _od.ObtenerLong(ruta);
+            return ObtenerLong(ruta);
         }
 
-        object IObjetoDatos.ObtenerObject(int indice)
+        long IObjetoDatos.ObtenerLong(IPropiedad propiedad)
         {
-            return _od.ObtenerObject(indice);
+            return ObtenerLong(propiedad);
         }
 
-        object IObjetoDatos.ObtenerObject(IPropiedad propiedad)
+        long IObjetoDatos.ObtenerLong(int indice)
         {
-            return _od.ObtenerObject(propiedad);
+            return ObtenerLong(indice);
         }
 
         object IObjetoDatos.ObtenerObject(string ruta)
         {
-            return _od.ObtenerObject(ruta);
+            return ObtenerObject(ruta);
         }
 
-        IObjetoDatos IObjetoDatos.ObtenerObjetoDatos(int indice)
+        object IObjetoDatos.ObtenerObject(IPropiedad propiedad)
         {
-            return _od.ObtenerObjetoDatos(indice);
+            return ObtenerObject(propiedad);
         }
 
-        IObjetoDatos IObjetoDatos.ObtenerObjetoDatos(IPropiedad propiedad)
+        object IObjetoDatos.ObtenerObject(int indice)
         {
-            return _od.ObtenerObjetoDatos(propiedad);
+            return ObtenerObject(indice);
         }
 
         IObjetoDatos IObjetoDatos.ObtenerObjetoDatos(string ruta)
         {
-            return _od.ObtenerObjetoDatos(ruta);
+            return ObtenerObjetoDatos(ruta);
         }
 
-        sbyte IObjetoDatos.ObtenerSByte(int indice)
+        IObjetoDatos IObjetoDatos.ObtenerObjetoDatos(IPropiedad propiedad)
         {
-            return _od.ObtenerSByte(indice);
+            return ObtenerObjetoDatos(propiedad);
         }
 
-        sbyte IObjetoDatos.ObtenerSByte(IPropiedad propiedad)
+        IObjetoDatos IObjetoDatos.ObtenerObjetoDatos(int indice)
         {
-            return _od.ObtenerSByte(propiedad);
+            return ObtenerObjetoDatos(indice);
         }
 
         sbyte IObjetoDatos.ObtenerSByte(string ruta)
         {
-            return _od.ObtenerSByte(ruta);
+            return ObtenerSByte(ruta);
         }
 
-        short IObjetoDatos.ObtenerShort(int indice)
+        sbyte IObjetoDatos.ObtenerSByte(IPropiedad propiedad)
         {
-            return _od.ObtenerShort(indice);
+            return ObtenerSByte(propiedad);
         }
 
-        short IObjetoDatos.ObtenerShort(IPropiedad propiedad)
+        sbyte IObjetoDatos.ObtenerSByte(int indice)
         {
-            return _od.ObtenerShort(propiedad);
+            return ObtenerSByte(indice);
         }
 
         short IObjetoDatos.ObtenerShort(string ruta)
         {
-            return _od.ObtenerShort(ruta);
+            return ObtenerShort(ruta);
         }
 
-        string IObjetoDatos.ObtenerString(int indice)
+        short IObjetoDatos.ObtenerShort(IPropiedad propiedad)
         {
-            return _od.ObtenerString(indice);
+            return ObtenerShort(propiedad);
         }
 
-        string IObjetoDatos.ObtenerString(IPropiedad propiedad)
+        short IObjetoDatos.ObtenerShort(int indice)
         {
-            return _od.ObtenerString(propiedad);
+            return ObtenerShort(indice);
         }
 
         string IObjetoDatos.ObtenerString(string ruta)
         {
-            return _od.ObtenerString(ruta);
+            return ObtenerString(ruta);
         }
 
-        uint IObjetoDatos.ObtenerUInteger(int indice)
+        string IObjetoDatos.ObtenerString(IPropiedad propiedad)
         {
-            return _od.ObtenerUInteger(indice);
+            return ObtenerString(propiedad);
         }
 
-        uint IObjetoDatos.ObtenerUInteger(IPropiedad propiedad)
+        string IObjetoDatos.ObtenerString(int indice)
         {
-            return _od.ObtenerUInteger(propiedad);
+            return ObtenerString(indice);
         }
 
         uint IObjetoDatos.ObtenerUInteger(string ruta)
         {
-            return _od.ObtenerUInteger(ruta);
+            return ObtenerUInteger(ruta);
         }
 
-        ulong IObjetoDatos.ObtenerULong(int indice)
+        uint IObjetoDatos.ObtenerUInteger(IPropiedad propiedad)
         {
-            return _od.ObtenerULong(indice);
+            return ObtenerUInteger(propiedad);
         }
 
-        ulong IObjetoDatos.ObtenerULong(IPropiedad propiedad)
+        uint IObjetoDatos.ObtenerUInteger(int indice)
         {
-            return _od.ObtenerULong(propiedad);
+            return ObtenerUInteger(indice);
         }
 
         ulong IObjetoDatos.ObtenerULong(string ruta)
         {
-            return _od.ObtenerULong(ruta);
+            return ObtenerULong(ruta);
         }
 
-        ushort IObjetoDatos.ObtenerUShort(int indice)
+        ulong IObjetoDatos.ObtenerULong(IPropiedad propiedad)
         {
-            return _od.ObtenerUShort(indice);
+            return ObtenerULong(propiedad);
         }
 
-        ushort IObjetoDatos.ObtenerUShort(IPropiedad propiedad)
+        ulong IObjetoDatos.ObtenerULong(int indice)
         {
-            return _od.ObtenerUShort(propiedad);
+            return ObtenerULong(indice);
         }
 
         ushort IObjetoDatos.ObtenerUShort(string ruta)
         {
-            return _od.ObtenerUShort(ruta);
+            return ObtenerUShort(ruta);
         }
 
-        void IObjetoDatos.RemoverObjetoDatos(int indice, IObjetoDatos item)
+        ushort IObjetoDatos.ObtenerUShort(IPropiedad propiedad)
         {
-            _od.RemoverObjetoDatos(indice, item);
+            return ObtenerUShort(propiedad);
         }
 
-        void IObjetoDatos.RemoverObjetoDatos(IPropiedad propiedad, IObjetoDatos item)
+        ushort IObjetoDatos.ObtenerUShort(int indice)
         {
-            _od.RemoverObjetoDatos(propiedad, item);
+            return ObtenerUShort(indice);
         }
 
         void IObjetoDatos.RemoverObjetoDatos(string nombre, IObjetoDatos item)
         {
-            _od.RemoverObjetoDatos(nombre, item);
+            RemoverObjetoDatos(nombre, item);
+        }
+
+        void IObjetoDatos.RemoverObjetoDatos(IPropiedad propiedad, IObjetoDatos item)
+        {
+            RemoverObjetoDatos(propiedad, item);
+        }
+
+        void IObjetoDatos.RemoverObjetoDatos(int indice, IObjetoDatos item)
+        {
+            RemoverObjetoDatos(indice, item);
         }
         #endregion
 
-    }    
+    }
 }

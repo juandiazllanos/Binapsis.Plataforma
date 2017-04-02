@@ -39,7 +39,11 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ensamblado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Propiedad.cs" />
+    <Compile Include="Tipo.cs" />
+    <Compile Include="Uri.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Binapsis.Plataforma.Estructura\Binapsis.Plataforma.Estructura.csproj">

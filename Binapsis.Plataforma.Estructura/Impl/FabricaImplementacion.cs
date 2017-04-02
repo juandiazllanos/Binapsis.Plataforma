@@ -1,4 +1,6 @@
-﻿namespace Binapsis.Plataforma.Estructura.Impl
+﻿using System;
+
+namespace Binapsis.Plataforma.Estructura.Impl
 {
     public  class FabricaImplementacion : IFabrica
     {
@@ -33,35 +35,33 @@
             return new Implementacion(tipo, propietario);
         }
 
-        protected virtual IImplementacion Crear(IImplementacion impl)
+        protected virtual IImplementacion CrearImplementacion(IImplementacion impl)
         {
             return impl;
         }
-
-
+        
+        protected virtual IObjetoDatos CrearObjetoDatos(IImplementacion impl)
+        {
+            impl = CrearImplementacion(impl);
+            return _fabrica.Crear(impl);
+        }
+        
         IObjetoDatos IFabrica.Crear(ITipo tipo)
         {
             IImplementacion impl = Crear(tipo);
-            impl = Crear(impl);
-            return _fabrica.Crear(impl);
+            return CrearObjetoDatos(impl);
         }
 
         IObjetoDatos IFabrica.Crear(ITipo tipo, IObjetoDatos propietario)
         {
             IImplementacion impl = Crear(tipo, propietario);
-            impl = Crear(impl);
-            return _fabrica.Crear(impl);
+            return CrearObjetoDatos(impl);
         }
-
+                
         IObjetoDatos IFabrica.Crear(IImplementacion impl)
         {
-            impl = Crear(impl);
-            return _fabrica.Crear(impl);
+            return CrearObjetoDatos(impl);
         }
 
-        IObjetoDatos IFabrica.Crear(IObjetoDatos od)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }
